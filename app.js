@@ -35,16 +35,14 @@ app.post('/add-student-ajax', function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
     
-        // Capture NULL values
-    
-        //let birthdate = parseInt(data.birthdate);
+        let birthdate = new Date(data.birthdate).toLocaleDateString('sv');
         //if (isNaN(birthdate))
         //{
-        //    birthdate = 'NULL'
+            //birthdate = 'NULL'
         //}
-    
+        console.log(birthdate)
         // Create the query and run it on the database
-        console.log(query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${data.birthdate})`);
+        console.log(query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${birthdate})`);
         
         db.pool.query(query1, function(error, rows, fields){
     

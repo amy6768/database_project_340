@@ -31,7 +31,7 @@ addStudentForm.addEventListener("submit", function (e) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-student-ajax", true);
     xhttp.addEventListener("error", e=>console.log(e))
-    xhr.onerror = function() { // only triggers if the request couldn't be made at all
+    xhttp.onerror = function() { // only triggers if the request couldn't be made at all
         alert(`Network Error`);
       };
     xhttp.setRequestHeader("Content-type", "application/json");

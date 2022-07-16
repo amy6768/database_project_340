@@ -25,7 +25,6 @@ app.get('/', function(req, res)
         let query1 = "SELECT * FROM Students;";               // Define our query
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
-
             res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query                                       // will process this file, before sending the finished HTML to the client.
@@ -40,9 +39,8 @@ app.post('/add-student-ajax', function(req, res)
         //{
             //birthdate = 'NULL'
         //}
-        console.log(birthdate)
         // Create the query and run it on the database
-        console.log(query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${birthdate})`);
+        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${birthdate}')`;
         
         db.pool.query(query1, function(error, rows, fields){
     

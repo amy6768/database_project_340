@@ -18,6 +18,7 @@
   "homepage": "https://github.com/apruitt13/340Project#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "forever": "^4.0.3"
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1"
   }
 }

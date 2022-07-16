@@ -5,10 +5,10 @@ var db = require('./database/db-connector')
 var express = require('express');   // We are using the express library for the web server
 
 
-var app     = express();            // We need to instantiate an express object to interact with the server in our code
+var app = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-PORT        = 9124;                 // Set a port number at the top so it's easy to change in the future
+PORT= 9124;                 // Set a port number at the top so it's easy to change in the future
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     // Import express-handlebars
@@ -36,14 +36,14 @@ app.post('/add-student-ajax', function(req, res)
     
         // Capture NULL values
     
-        let birthdate = parseInt(data.birthdate);
-        if (isNaN(birthdate))
-        {
-            birthdate = 'NULL'
-        }
+        //let birthdate = parseInt(data.birthdate);
+        //if (isNaN(birthdate))
+        //{
+        //    birthdate = 'NULL'
+        //}
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${homebirthdateworld})`;
+        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${data.birthdate})`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -55,7 +55,7 @@ app.post('/add-student-ajax', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on bsg_people
+                // If there was no error, perform a SELECT * on Students
                 query2 = `SELECT * FROM Students;`;
                 db.pool.query(query2, function(error, rows, fields){
     

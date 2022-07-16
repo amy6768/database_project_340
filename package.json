@@ -1,0 +1,23 @@
+{
+  "name": "340project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apruitt13/340Project.git"
+  },
+  "author": "Adam Pruitt and Amy Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apruitt13/340Project/issues"
+  },
+  "homepage": "https://github.com/apruitt13/340Project#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "forever": "^4.0.3"
+  }
+}

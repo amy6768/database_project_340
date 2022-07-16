@@ -1,5 +1,5 @@
 <!-- index.hbs -->
-<h1>The server is running!</h1>
+<h1>The page is working.</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p>
 
 {{!-- Create a table --}}
@@ -37,7 +37,7 @@
 {{!-- Form to add a record to the table  --}}
 <h2>Add a new student</h2>
 <p>To add a new Student, please enter their information below and click 'Submit'!</p>
-<form id="add-student-form-ajax">
+<form id="add-student-ajax">
     <label for="input-studentFirstName">First Name: </label>
     <input type="text" name="input-studentFirstName" id="input-studentFirstName">
     
@@ -51,4 +51,4 @@
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_student.js"></script>
+<script src="/js/add_student.js"></script>

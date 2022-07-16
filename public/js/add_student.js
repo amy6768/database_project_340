@@ -1,5 +1,5 @@
 // Get the objects we need to modify
-let addStudentForm = document.getElementById('add-student-form-ajax');
+let addStudentForm = document.getElementById("add-student-ajax");
 
 // Modify the objects we need
 addStudentForm.addEventListener("submit", function (e) {
@@ -30,8 +30,15 @@ addStudentForm.addEventListener("submit", function (e) {
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-student-ajax", true);
+    xhttp.addEventListener("error", e=>console.log(e))
+    xhr.onerror = function() { // only triggers if the request couldn't be made at all
+        alert(`Network Error`);
+      };
     xhttp.setRequestHeader("Content-type", "application/json");
-
+    test = JSON.stringify(data)
+    console.log(test)
+    xhttp.send(test);
+    
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -50,13 +57,13 @@ addStudentForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
-    xhttp.send(JSON.stringify(data));
+
 
 })
 
 
 // Creates a single row from an Object representing a single record from 
-// bsg_people
+// Students
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.

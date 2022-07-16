@@ -8,6 +8,7 @@ var express = require('express');   // We are using the express library for the 
 var app = express();            // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(express.static(__dirname + '/public'))
 PORT= 9124;                 // Set a port number at the top so it's easy to change in the future
 
 const { engine } = require('express-handlebars');
@@ -43,7 +44,8 @@ app.post('/add-student-ajax', function(req, res)
         //}
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${data.birthdate})`;
+        console.log(query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', ${data.birthdate})`);
+        
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -56,7 +58,7 @@ app.post('/add-student-ajax', function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on Students
-                query2 = `SELECT * FROM Students;`;
+                query2 = "SELECT * FROM Students;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400

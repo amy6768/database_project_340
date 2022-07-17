@@ -40,10 +40,8 @@ app.post('/add-student-ajax', function(req, res)
         let data = req.body;
     
         let birthdate = new Date(data.birthdate).toLocaleDateString('sv');
-        //if (isNaN(birthdate))
-        //{
-            //birthdate = 'NULL'
-        //}
+        if (isNaN(birthdate))
+        {birthdate = 'NULL'}
         // Create the query and run it on the database
         query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${birthdate}')`;
         
@@ -51,7 +49,6 @@ app.post('/add-student-ajax', function(req, res)
     
             // Check to see if there was an error
             if (error) {
-    
                 // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
                 console.log(error)
                 res.sendStatus(400);

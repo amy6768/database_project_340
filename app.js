@@ -16,13 +16,12 @@ var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({extname: ".hbs"}));  // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
-
 /*
     ROUTES
 */
 app.get('/', function(req, res)
     {
-        res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+        res.render('Homepage');                    // Note the call to render() and not send(). Using render() ensures the templating engine
     });                                         // will process this file, before sending the finished HTML to the client.
 
 app.get('/Students', function(req, res)

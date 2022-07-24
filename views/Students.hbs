@@ -7,6 +7,8 @@
 <p>If you see this text, the server is <strong>definitely</strong> working!</p> -->
 <h1>Students</h1>
 <!DOCTYPE html>
+
+<!-- All of this is the navigation bar-->
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -65,6 +67,7 @@
 </nav>
 </body>
 </html>
+<!-- End of navigation bar -->
 
 {{!-- Create a table --}}
 
@@ -113,6 +116,16 @@
         {{/each}}
     </tbody>
 </table>
+
+<!-- Form to search for a student -->
+<h2>Search For a Student </h2>
+<p>Search by last name using the field below. Partial last names are OK too!</p>
+<form id="search-person-html" method='GET' action='/Students'>
+    <label for="input-studentLastName">Search by Last Name: </label>
+    <input type="text" name="studentLastName" id="input-studentLastName-html-search">
+    <input type="submit">
+    <a href='/Students'><button>Reset</button></a>
+</form>
 
 {{!-- Form to add a record to the table  --}}
 <h2>Add a new student</h2>

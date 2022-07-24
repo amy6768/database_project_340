@@ -25,13 +25,35 @@ app.get('/', function(req, res)
     });                                         // will process this file, before sending the finished HTML to the client.
 
 app.get('/Students', function(req, res)
-    {  
-        let query1 = "SELECT * FROM Students;";               // Define our query
+{
+    // Declare Query 1
+    let query1;
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-            res.render('Students', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.studentLastName === undefined)
+    {
+        query1 = "SELECT * FROM Students;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM Students WHERE studentLastName LIKE "${req.query.studentLastName}%"`
+    }
+    
+    // Query 2 is the same in both cases
+    //let query2 = "SELECT * FROM Teachers;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let students = rows;
+        
+        return res.render('Students', {data: students});
+        
+    })
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
 app.post('/add-student-ajax', function(req, res) 
     {

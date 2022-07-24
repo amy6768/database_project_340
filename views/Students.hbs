@@ -5,7 +5,7 @@
 
 <!-- <h1>The page is working.</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p> -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <h1>Students</h1>
 <!DOCTYPE html>
 
@@ -93,11 +93,11 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr >
-            <th style="text-align:center;"> ID</th>
-            <th style="text-align:center;" > First Name</th>
-            <th style="text-align:center;" > Last Name</th>
-            <th style="text-align:center;" > Birthdate</th>
-            <th style="text-align:center;" > Delete</th>
+            <th style="text-align:center; width: 0.1%"> ID</th>
+            <th style="text-align:center; width: 0.1%" > First Name</th>
+            <th style="text-align:center; width: 0.1%" > Last Name</th>
+            <th style="text-align:center; width: 0.1%" > Birthdate</th>
+            <th style="text-align:center; width: 0.1%" > Delete</th>
         </tr>
     </thead>
 
@@ -115,7 +115,7 @@
 
             <td align = 'middle'>{{this.birthdate}}</td>
 
-            <td><button onclick="deleteStudent({{this.idStudent}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteStudent({{this.idStudent}})">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -143,10 +143,38 @@
     <input type="text" name="input-studentLastName" id="input-studentLastName">
 
     <label for="input-birthdate">Birthdate: </label>
-    <input type="date" name="input-birthdate" id="input-birthdate">
+    <input type="text" name="input-birthdate" id="input-birthdate" value = "mm-dd-yy">
 
     <input type="submit">
 </form>
+
+<!-- Form to update a student -->
+
+<h2>Updating A Student</h2>
+<p>To update a specific student  select their ID from the drop-down menu on the left.</p>
+<form id="update-student-form-ajax">
+
+    <label for="update-idStudent">Student ID: </label>
+    <select name="update-idStudent" id="mySelect">
+        <option value="test">Select a Student</option>
+        {{#each data}}
+        <option value="{{this.idStudent}}">{{this.idStudent}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-studentFirstName">First Name: </label>
+    <input type="text" name="update-studentFirstName" id="update-studentFirstName">
+    
+    <label for="update-studentLastName">Last Name: </label>
+    <input type="text" name="update-studentLastName" id="update-studentLastName">
+
+    <label for="update-birthdate">Birthdate: </label>
+    <input type="text" name="update-birthdate" id="update-birthdate" value = "mm-dd-yy">
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_person.js"></script>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script type="text/javascript" src="/js/add_student.js"></script>

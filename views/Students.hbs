@@ -5,6 +5,7 @@
 
 <!-- <h1>The page is working.</h1>
 <p>If you see this text, the server is <strong>definitely</strong> working!</p> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <h1>Students</h1>
 <!DOCTYPE html>
 
@@ -92,10 +93,11 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr >
-            <th style="text-align:center;"> ID </th>
-            <th style="text-align:center;" > First Name  </th>
-            <th style="text-align:center;" > Last Name   </th>
-            <th style="text-align:center;" > Birthdate   </th>
+            <th style="text-align:center;"> ID</th>
+            <th style="text-align:center;" > First Name</th>
+            <th style="text-align:center;" > Last Name</th>
+            <th style="text-align:center;" > Birthdate</th>
+            <th style="text-align:center;" > Delete</th>
         </tr>
     </thead>
 
@@ -103,8 +105,8 @@
     <tbody>
 
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        {{#each data}}
-        <tr>
+        <!--{{#each data}}-->
+        <tr data-value = {{this.idStudent}}>
             <td align = 'middle'>{{this.idStudent}}</td>
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
@@ -112,10 +114,13 @@
             <td align = 'middle'>{{this.studentLastName}}</td>
 
             <td align = 'middle'>{{this.birthdate}}</td>
+
+            <td><button onclick="deleteStudent({{this.idStudent}})">Delete</button></td>
         </tr>
-        {{/each}}
+        <!--{{/each}}-->
     </tbody>
 </table>
+<script src="./js/delete_student.js"></script>
 
 <!-- Form to search for a student -->
 <h2>Search For a Student </h2>

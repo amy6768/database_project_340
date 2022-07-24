@@ -97,8 +97,54 @@ app.post('/add-student-ajax', function(req, res)
         })
     });
 
+app.delete('/delete-person-ajax/', function(req,res,next){
+  let data = req.body;
+  let personID = parseInt(data.id);
+  let deleteBsg_Cert_People = `DELETE FROM bsg_cert_people WHERE pid = ?`;
+  let deleteBsg_People= `DELETE FROM bsg_people WHERE id = ?`;
 
 
+        // Run the 1st query
+        db.pool.query(deleteBsg_Cert_People, [personID], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+                // Run the second query
+                db.pool.query(deleteBsg_People, [personID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.sendStatus(204);
+                    }
+                })
+            }
+})});
+
+app.delete('/delete-student-ajax/', function(req,res,next){
+    let data = req.body;
+    let idStudent = parseInt(data.id);
+    let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              
+  })});
 /*
     LISTENER
 */

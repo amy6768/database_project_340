@@ -2,7 +2,7 @@
 let updateStudentForm = document.getElementById('update-student-form-ajax');
 
 // Modify the objects we need
-updatestudentForm.addEventListener("submit", function (e) {
+updateStudentForm.addEventListener("submit", function (e) {
    
     // Prevent the form from submitting
     e.preventDefault();
@@ -55,13 +55,13 @@ updatestudentForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
-    console.log(data)
     xhttp.send(JSON.stringify(data));
 
 })
 
 
 function updateRow(data, idStudent){
+    console.log(data)
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("student-table");
@@ -76,10 +76,15 @@ function updateRow(data, idStudent){
             console.log(updateRowIndex)
 
             // Get td of homeworld value
-            let td = updateRowIndex.getElementsByTagName("td")[3];
+            let td1 = updateRowIndex.getElementsByTagName("td")[1];
+            let td2 = updateRowIndex.getElementsByTagName("td")[2];
+            let td3 = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
+            td1.innerHTML = parsedData[1].studentFirstName; 
+            td2.innerHTML = parsedData[2].studentLastName;
+            td3.innerHTML = parsedData[2].birthdate;
+
        }
     }
 }

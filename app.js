@@ -19,11 +19,14 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
+
+// Homepage render.
 app.get('/', function(req, res)
     {
         res.render('Homepage');                    // Note the call to render() and not send(). Using render() ensures the templating engine
     });                                         // will process this file, before sending the finished HTML to the client.
 
+// Students section - display the table or search the table and display.
 app.get('/Students', function(req, res)
 {
     // Declare Query 1
@@ -55,6 +58,7 @@ app.get('/Students', function(req, res)
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
+// Students section - Adding a student.
 app.post('/add-student-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
@@ -97,7 +101,7 @@ app.post('/add-student-ajax', function(req, res)
         })
     });
 
-
+// Students section - Delete a student.
 app.delete('/delete-student-ajax/', function(req,res,next){
     let data = req.body;
     let idStudent = parseInt(data.id);
@@ -112,11 +116,10 @@ app.delete('/delete-student-ajax/', function(req,res,next){
         console.log(error);
         res.sendStatus(400);
         }
-        
-
-              
+                
   })});
 
+// Students section - Update a student.
 app.put('/put-student-ajax', function(req,res,next){
     let data = req.body;
   
@@ -125,7 +128,7 @@ app.put('/put-student-ajax', function(req,res,next){
     let studentLastName = parseInt(data.studentLastName);
     let birthdate = parseInt(data.birthdate);
   
-    let queryUpdateStudent = `UPDATE Student SET studentFirstName = ?, studentLastName = ?, birthdate = ? WHERE Student.idStudent = ?`;
+    let queryUpdateStudent = `UPDATE Students SET studentFirstName = ?, studentLastName = ?, birthdate = ? WHERE Students.idStudent = ?`;
     
           // Run the 1st query
           db.pool.query(queryUpdateStudent, [idStudent, studentFirstName, studentLastName, birthdate], function(error, rows, fields){
@@ -160,6 +163,10 @@ app.put('/put-student-ajax', function(req,res,next){
                 })
             }
   })});
+
+
+
+  
 /*
     LISTENER
 */

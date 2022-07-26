@@ -286,7 +286,22 @@ app.put('/put-teacher-ajax', function(req,res,next){
             }
   })});
 
-
+// Delete a Teacher
+app.delete('/delete-teacher-ajax/', function(req,res,next){
+    let data = req.body;
+    let idTeacher = parseInt(data.id);
+    let deleteTeacher= `DELETE FROM Teachers WHERE idTeacher = ?`;
+  
+    // Run the 1st query
+    db.pool.query(deleteTeacher, [idTeacher], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
 
 
 

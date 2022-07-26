@@ -10,28 +10,35 @@ addTeacherForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputFirstName = document.getElementById("input-teacherFirstName");
     let inputLastName = document.getElementById("input-teacherLastName");
+    
 
     // Get the values from the form fields
     let firstNameValue = inputFirstName.value;
     let lastNameValue = inputLastName.value;
-
+    
     // Put our data we want to send in a javascript object
     let data = {
         teacherFirstName: firstNameValue,
-        teacherLastName: lastNameValue
-    }
-    
+        teacherLastName: lastNameValue,
+    };
+    console.log(data);
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/add-teacher-ajax", true);
-    xhttp.addEventListener("error", e=>console.log(e))
+    xhttp.addEventListener("error", e=>console.log(e));
     xhttp.onerror = function() { // only triggers if the request couldn't be made at all
         alert(`Network Error`);
       };
     xhttp.setRequestHeader("Content-type", "application/json");
-    test = JSON.stringify(data)
-    console.log(test)
+    test = JSON.stringify(data);
+   
     xhttp.send(test);
+
+    console.log(test);
+    
+    console.log(xhttp.readyState);
+    
     
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
@@ -39,7 +46,7 @@ addTeacherForm.addEventListener("submit", function (e) {
 
             // Add the new data to the table
             addRowToTable(xhttp.response);
-
+            
             // Clear the input fields for another transaction
             inputFirstName.value = '';
             inputLastName.value = '';
@@ -103,7 +110,7 @@ addRowToTable = (data) => {
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
     let selectMenu = document.getElementById("mySelect");
     let option = document.createElement("option");
-    option.text = newRow.teacherFirstName + ' ' +  newRow.teacherLastName;
+    option.text = newRow.fName + ' ' +  newRow.lName;
     option.value = newRow.id;
     selectMenu.add(option);
     // End of new step 8 code.

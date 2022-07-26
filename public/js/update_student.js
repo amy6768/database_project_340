@@ -18,11 +18,11 @@ updateStudentForm.addEventListener("submit", function (e) {
     let studentFirstNameValue = inputstudentFirstName.value;
     let studentLastNameValue = inputstudentLastName.value;
     let birthdateValue = inputbirthdate.value;
-    
+    console.log(idStudentValue, studentFirstNameValue, studentLastNameValue, birthdateValue)
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
-    if (isNaN(idStudentValue)) 
+    if (!idStudentValue || isNaN(idStudentValue)) 
     {
         return;
     }
@@ -30,10 +30,10 @@ updateStudentForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        updateidStudent: idStudentValue,
-        updatestudentFirstName: studentFirstNameValue,
-        updatestudentLastName: studentLastNameValue,
-        updatebirthdate: birthdateValue,
+        idStudent: idStudentValue,
+        studentFirstName: studentFirstNameValue,
+        studentLastName: studentLastNameValue,
+        birthdate: birthdateValue,
     }
     
     // Setup our AJAX request
@@ -55,7 +55,9 @@ updateStudentForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
+    console.log(data)
     xhttp.send(JSON.stringify(data));
+    
 
 })
 

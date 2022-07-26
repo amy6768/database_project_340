@@ -122,16 +122,17 @@ app.delete('/delete-student-ajax/', function(req,res,next){
 // Students section - Update a student.
 app.put('/put-student-ajax', function(req,res,next){
     let data = req.body;
-  
-    let idStudent = parseInt(data.idStudent);
-    let studentFirstName = parseInt(data.studentFirstName);
-    let studentLastName = parseInt(data.studentLastName);
-    let birthdate = parseInt(data.birthdate);
+    console.log(req)
+    let idStudent = data.idStudent;
+    let studentFirstName = data.studentFirstName;
+    let studentLastName = data.studentLastName;
+    let birthdate = data.birthdate;
+    console.log(idStudent, studentFirstName, studentLastName, birthdate)
   
     let queryUpdateStudent = `UPDATE Students SET studentFirstName = ?, studentLastName = ?, birthdate = ? WHERE Students.idStudent = ?`;
     
           // Run the 1st query
-          db.pool.query(queryUpdateStudent, [idStudent, studentFirstName, studentLastName, birthdate], function(error, rows, fields){
+          db.pool.query(queryUpdateStudent, [studentFirstName, studentLastName, birthdate, idStudent], function(error, rows, fields){
             console.log(queryUpdateStudent)
               if (error) {
   

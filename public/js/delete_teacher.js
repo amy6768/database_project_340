@@ -6,9 +6,10 @@ function deleteTeacher(idTeacher) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-student-ajax", true);
+    xhttp.open("DELETE", "/delete-teacher-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-
+    console.log(data)
+    console.log(xhttp)
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {

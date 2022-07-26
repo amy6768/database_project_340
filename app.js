@@ -291,6 +291,10 @@ app.delete('/delete-teacher-ajax/', function(req,res,next){
     let data = req.body;
     let idTeacher = parseInt(data.id);
     let deleteTeacher= `DELETE FROM Teachers WHERE idTeacher = ?`;
+
+    console.log(data);
+    console.log(idTeacher);
+    console.log(deleteTeacher);
   
     // Run the 1st query
     db.pool.query(deleteTeacher, [idTeacher], function(error, rows, fields){
@@ -302,10 +306,6 @@ app.delete('/delete-teacher-ajax/', function(req,res,next){
         }
                 
   })});
-
-
-
-
 
 
 /*

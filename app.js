@@ -160,6 +160,49 @@ app.put('/put-student-ajax', function(req,res,next){
                 })
             }
   })});
+
+
+  // Routes for Teachers
+
+  app.get('/Teachers', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.teacherLastName === undefined)
+    {
+        query1 = "SELECT * FROM Teachers;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM Teachers WHERE teacherLastName LIKE "${req.query.teacherLastName}%"`
+    }
+    
+    // Query 2 is the same in both cases
+    //let query2 = "SELECT * FROM Teachers;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let teachers = rows;
+        
+        return res.render('Teachers', {data: teachers});
+        
+    })
+});                                                       // received back from the query
+
+
+
+
+
+
+
+
+
 /*
     LISTENER
 */

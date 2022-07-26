@@ -69,3 +69,51 @@
 </body>
 </html>
 <!-- End of navigation bar -->
+
+{{!-- Create a table --}}
+
+<div id="browse" border-style="display: block">
+<p><strong>Browse Teachers</strong></p>
+<table id = "teacher-table" border="1" cellpadding="5" >
+
+    {{!-- Header section --}}
+
+    <!-- Option to pull in existing headers
+        <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>-->
+    <thead >
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr >
+            <th style="text-align:center; width: 0.1%"> ID</th>
+            <th style="text-align:center; width: 0.1%" > First Name</th>
+            <th style="text-align:center; width: 0.1%" > Last Name</th>
+            <th style="text-align:center; width: 0.1%" > Delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        <!--{{#each data}}-->
+        <tr data-value = {{this.idTeacher}}>
+            <td align = 'middle'>{{this.idTeacher}}</td>
+
+            <td align = 'middle'>{{this.teacherFirstName}}</td>
+
+            <td align = 'middle'>{{this.teacherLastName}}</td>
+
+            <td align = 'middle'><button onclick="deleteTeacher({{this.idTeacher}})">Delete</button></td>
+        </tr>
+        <!--{{/each}}-->
+    </tbody>
+</table>

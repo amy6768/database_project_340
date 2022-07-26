@@ -79,8 +79,8 @@ function updateRow(data, idTeacher){
             let td2 = updateRowIndex.getElementsByTagName("td")[2];
 
             // Reassign homeworld to our value we updated to
-            td1.innerHTML = parsedData[1].studentFirstName; 
-            td2.innerHTML = parsedData[2].studentLastName;
+            td1.innerHTML = parsedData[1].teacherFirstName; 
+            td2.innerHTML = parsedData[2].teacherLastName;
 
        }
     }

@@ -167,7 +167,7 @@ app.put('/put-student-ajax', function(req,res,next){
 
 
   // Routes for Teachers
-  
+
   app.get('/Teachers', function(req, res)
 {
     // Declare Query 1
@@ -240,6 +240,51 @@ app.post('/add-teacher-ajax', function(req, res)
         })
     });
 
+// Update a Teacher
+
+app.put('/put-teacher-ajax', function(req,res,next){
+    let data = req.body;
+    console.log(req)
+    let idTeacher = data.idTeacher;
+    let teacherFirstName = data.teacherFirstName;
+    let teacherLastName = data.teacherLastName;
+    console.log(idTeacher, teacherFirstName, teacherLastName)
+  
+    let queryUpdateTeacher = `UPDATE Teachers SET teacherFirstName = ?, teacherLastName = ? WHERE Teachers.idTeacher = ?`;
+    
+          // Run the 1st query
+          db.pool.query(queryUpdateTeacher, [teacherFirstName, teacherLastName, idTeacher], function(error, rows, fields){
+            console.log(queryUpdateTeacher)
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM Teachers;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
 
 
 

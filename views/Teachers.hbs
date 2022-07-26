@@ -119,3 +119,39 @@
 </table>
 <script src="./js/delete_teacher.js"></script>
 
+{{!-- Form to add a record to the table  --}}
+<h2>Add a New Teacher</h2>
+<p>To add a new teacher, please enter their information below and click 'Submit'!</p>
+<form id="add-teacher-ajax">
+    <label for="input-teacherFirstName">First Name: </label>
+    <input type="text" name="input-teacherFirstName" id="input-teacherFirstName">
+    
+    <label for="input-teacherLastName">Last Name: </label>
+    <input type="text" name="input-teacherLastName" id="input-teacherLastName">
+
+    <input type="submit">
+</form>
+
+<h2>Update a Teacher</h2>
+<p>To update a specific teacher select their ID from the drop-down menu on the left.</p>
+<form id="update-teacher-form-ajax">
+
+    <label for="update-idTeacher">Teacher ID: </label>
+    <select name="update-idTeacher" id="mySelect">
+        <option value="test">Select a Teacher</option>
+        {{#each data}}
+        <option value="{{this.idTeacher}}">{{this.idTeacher}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-teacherFirstName">First Name: </label>
+    <input type="text" name="update-teacherFirstName" id="update-teacherFirstName">
+    
+    <label for="update-teacherLastName">Last Name: </label>
+    <input type="text" name="update-teacherLastName" id="update-teacherLastName">
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_teacher.js"></script>

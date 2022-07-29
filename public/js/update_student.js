@@ -1,3 +1,8 @@
+// Citation for the CRUD operations:
+//  Date: 7/28/22
+//  Adapted from:
+//  Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Get the objects we need to modify
 let updateStudentForm = document.getElementById('update-student-form-ajax');
 
@@ -91,7 +96,3 @@ function updateRow(data, idStudent){
     }
 }
 
-//# Citation for the CRUD operations:
-// # Date: 7/28/22
-// # Adapted from:
-// # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app

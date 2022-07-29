@@ -1,3 +1,8 @@
+// Citation for the CRUD operations:
+//  Date: 7/28/22
+//  Adapted from:
+//  Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 function deleteTeacher(idTeacher) {
     // Put our data we want to send in a javascript object
     let data = {
@@ -40,7 +45,3 @@ function deleteRow(idTeacher){
     }
 }
 
-//# Citation for the CRUD operations:
-// # Date: 7/28/22
-// # Adapted from:
-// # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app

@@ -1,3 +1,8 @@
+// Citation for the CRUD operations and starter code:
+//  Date: 7/28/22
+//  Adapted from:
+// #Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // App.js
 
 //setup
@@ -315,7 +320,3 @@ app.listen(PORT, function(){            // This is the basic syntax for what is 
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
 
-//# Citation for the CRUD operations and starter code:
-// # Date: 7/28/22
-// # Adapted from:
-// # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app

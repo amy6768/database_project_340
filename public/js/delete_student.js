@@ -38,3 +38,8 @@ function deleteRow(idStudent){
        }
     }
 }
+
+//# Citation for the CRUD operations:
+// # Date: 7/28/22
+// # Adapted from:
+// # Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app

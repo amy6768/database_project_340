@@ -203,7 +203,7 @@ app.get('/Tests', function(req, res)
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
-// test section - Adding a student.
+// test section - Adding a test.
 app.post('/add-test-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
@@ -246,7 +246,7 @@ app.post('/add-test-ajax', function(req, res)
         })
     });
 
-// Tests section - Delete a student.
+// Tests section - Delete a test.
 app.delete('/delete-test-ajax/', function(req,res,next){
     let data = req.body;
     let idTest = parseInt(data.id);
@@ -264,7 +264,7 @@ app.delete('/delete-test-ajax/', function(req,res,next){
                 
   })});
 
-// Students section - Update a student.
+// Test section - Update a test.
 app.put('/put-test-ajax', function(req,res,next){
     let data = req.body;
     console.log(req)
@@ -276,7 +276,7 @@ app.put('/put-test-ajax', function(req,res,next){
     let queryUpdateTest = `UPDATE Tests SET testName = ?, testDescription = ? WHERE Tests.idTest = ?`;
     
           // Run the 1st query
-          db.pool.query(queryUpdateTests, [testName, testDescription, idTest], function(error, rows, fields){
+          db.pool.query(queryUpdateTest, [testName, testDescription, idTest], function(error, rows, fields){
             console.log(queryTests)
               if (error) {
   
@@ -291,6 +291,146 @@ app.put('/put-test-ajax', function(req,res,next){
             {
                 // If there was no error, perform a SELECT * on Students
                 query2 = "SELECT * FROM Tests;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
+
+// Everything for Parents:
+
+app.get('/Parents', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.testName === undefined)
+    {
+        query1 = "SELECT * FROM Parents;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM Parents WHERE testName LIKE "${req.query.firstName}%"`
+    }
+    
+    // Query 2 is the same in both cases
+    //let query2 = "SELECT * FROM Teachers;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let tests = rows;
+        
+        return res.render('Parents', {data: tests});
+        
+    })
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+
+// Parent section - Adding a parent.
+app.post('/add-parent-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        //let birthdate = data.birthdate;
+        //if (isNaN(birthdate))
+        //{birthdate = 'NULL'}
+        // Create the query and run it on the database
+        query1 = `INSERT INTO Parents (parentFirstName, parentLastName, phoneNumber) VALUES ('${data.firstName}', '${data.lastName}', '${data.phoneNumber}')`;
+    
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM Parents;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
+// Tests section - Delete a student.
+app.delete('/delete-parent-ajax/', function(req,res,next){
+    let data = req.body;
+    let idParent = parseInt(data.id);
+    let deleteParent= `DELETE FROM Parent WHERE idParent = ?`;
+  
+  
+    // Run the 1st query
+    db.pool.query(deleteParent, [idParent], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
+
+// Parents section - Update a Parent.
+app.put('/put-parent-ajax', function(req,res,next){
+    let data = req.body;
+    console.log(req)
+    let idParent = data.idParent;
+    let firstName = data.firstName
+    let lastName = data.lastName;
+    let phoneNumber = data.phoneNumber;
+    console.log(idParent, firstName, lastName, phoneNumber)
+  
+    let queryUpdateParent = `UPDATE Parents SET parentFirstName = ?, parentLastName = ?, phoneNumber WHERE Parents.idParent = ?`;
+    
+          // Run the 1st query
+          db.pool.query(queryUpdateParent, [firstName, lastName, phoneNumber, idParent], function(error, rows, fields){
+            console.log(queryUpdateParent)
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM Parents;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400

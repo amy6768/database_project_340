@@ -249,8 +249,8 @@ app.post('/add-test-ajax', function(req, res)
 // Tests section - Delete a student.
 app.delete('/delete-test-ajax/', function(req,res,next){
     let data = req.body;
-    let idStudent = parseInt(data.id);
-    let deleteStudent= `DELETE FROM Tests WHERE idTest = ?`;
+    let idTest = parseInt(data.id);
+    let deleteTest= `DELETE FROM Tests WHERE idTest = ?`;
   
   
     // Run the 1st query

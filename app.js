@@ -389,7 +389,7 @@ app.post('/add-parent-ajax', function(req, res)
 app.delete('/delete-parent-ajax/', function(req,res,next){
     let data = req.body;
     let idParent = parseInt(data.id);
-    let deleteParent= `DELETE FROM Parent WHERE idParent = ?`;
+    let deleteParent= `DELETE FROM Parents WHERE idParent = ?`;
   
   
     // Run the 1st query

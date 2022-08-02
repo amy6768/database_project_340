@@ -31,8 +31,8 @@
         <ul class="dropdown-menu">
           <li><a href="/Students">Students</a></li>
           <li><a href="#">Students Interventions</a></li>
-          <li><a href="#">Students Teachers</a></li>
-          <li><a href="#">Students Tests</a></li>
+          <li><a href="/StudentsTeachers">Students Teachers</a></li>
+          <li><a href="/StudentsTests">Students Tests</a></li>
           <li><a href="#">Students Parents</a></li>
         </ul>
       </li>
@@ -126,7 +126,7 @@
     <select name="add-idTestScore" id="add-idTestScore">
         <option value="TestScore">Select a Test</option>
         {{#each data}}
-        <option value="{{this.idTestScore}}">{{this.idTestScore}}</option>
+        <option value="{{this.testName}}">{{this.testName}}</option>
         {{/each}}
     </select>
 
@@ -134,7 +134,7 @@
     <select name="add-idStudent" id="add-idStudent">
         <option value="TestScore">Select a Student</option>
         {{#each data}}
-        <option value="{{this.idStudent}}">{{this.idStudent}}</option>
+        <option value="{{this.studentFirstName}}">{{this.studentFirstName}}</option>
         {{/each}}
     </select>
     

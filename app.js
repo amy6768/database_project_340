@@ -479,7 +479,7 @@ app.get('/TestScores', function(req, res)
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
-// Students section - Adding a student.
+// TestScores section - Adding a TestScores.
 app.post('/add-student-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
@@ -522,8 +522,98 @@ app.post('/add-student-ajax', function(req, res)
         })
     });
 
-// Students section - Delete a student.
+// TestScores section - Delete a TestScores.
 app.delete('/delete-student-ajax/', function(req,res,next){
+    let data = req.body;
+    let idStudent = parseInt(data.id);
+    let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
+  
+  
+    // Run the 1st query
+    db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
+
+// Everything for StudentsTeachers
+// StudentsTeachers section - display the table or search the table and display.
+app.get('/StudentsTeachers', function(req, res)
+{
+    // Declare Query 1
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.studentLastName === undefined)
+    {
+        query1 = "SELECT StudentsTeachers.idStudentsTeacher,Teachers.teacherFirstName, Students.studentFirstName FROM ((StudentsTeachers INNER JOIN Students on StudentsTeachers.idStudent = Students.idStudent) INNER JOIN Teachers on StudentsTeachers.idTeacher = Teachers.idTeacher);";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    
+    // Query 2 is the same in both cases
+    //let query2 = "SELECT * FROM Teachers;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let StudentsTeachers = rows;
+        
+        return res.render('StudentsTeachers', {data: StudentsTeachers});
+        
+    })
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+
+// TestScores section - Adding a TestScores.
+app.post('/add-students-teacher-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        //let birthdate = data.birthdate;
+        //if (isNaN(birthdate))
+        //{birthdate = 'NULL'}
+        // Create the query and run it on the database
+        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
+    
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM Students;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
+// TestScores section - Delete a TestScores.
+app.delete('/delete-students-teacher-ajax/', function(req,res,next){
     let data = req.body;
     let idStudent = parseInt(data.id);
     let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;

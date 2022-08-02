@@ -1,0 +1,154 @@
+<!-- Citation for the follow navigation -->
+<!-- 7/23/22 -->
+<!-- Adapted from  -->
+<!-- Soure URL: https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_navbar_dropdown&stacked=h-->
+
+<!-- <h1>The page is working.</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p> -->
+
+<h1>Test Scores</h1>
+<!DOCTYPE html>
+
+<!-- All of this is the navigation bar-->
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Home</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Students <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/Students">Students</a></li>
+          <li><a href="#">Students Interventions</a></li>
+          <li><a href="#">Students Teachers</a></li>
+          <li><a href="#">Students Tests</a></li>
+          <li><a href="#">Students Parents</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Behavior <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Behavior Incidents</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Interventions <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Interventions</a></li>
+          <li><a href="#">Intervention Progress</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Testing <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/Tests">Tests</a></li>
+          <li><a href="/TestScores">Tests Scores</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Parents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/Parents">Parents</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Teachers <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/Teachers">Teachers</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>
+<!-- End of navigation bar -->
+
+{{!-- Create a table --}}
+
+<div id="browse" border-style="display: block">
+<p><strong>Browse Test Scores</strong></p>
+<table id = "testScores-table" border="1" cellpadding="5" >
+
+    <thead >
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr >
+            <th style="text-align:center; "> Test/Scores ID </th>
+            <th style="text-align:center; " > Test Date</th>
+            <th style="text-align:center; " > Test Score</th>
+            <th style="text-align:center; " > Student Name</th>
+            <th style="text-align:center; " > Test Name</th>
+            <th style="text-align:center; " > Notes</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        <!--{{#each data}}-->
+        <tr data-value = {{this.idTest}}>
+            <td align = 'middle'>{{this.idTestScore}}</td>
+
+            <td align = 'middle' > {{this.testDate}}</td>
+
+            <td align = 'middle'>{{this.testScore}}</td>
+
+            <td align = 'middle'>{{this.studentFirstName}}</td>
+
+            <td align = 'middle'>{{this.testName}}</td>
+
+            <td align = 'middle'>{{this.notes}}</td>
+
+
+            <td align = 'middle'><button onclick="deleteTest({{this.idTestScore}})">Delete</button></td>
+        </tr>
+        <!--{{/each}}-->
+    </tbody>
+</table>
+<script src="./js/delete_test_score.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+
+
+<h2>Add a new test score</h2>
+<p>To add a new test score, please enter the test information below and click 'Submit'!</p>
+<form id="add-test-score-ajax">
+    <label for="add-idTestScore">Choose a Test: </label>
+    <select name="add-idTestScore" id="add-idTestScore">
+        <option value="TestScore">Select a Test</option>
+        {{#each data}}
+        <option value="{{this.idTestScore}}">{{this.idTestScore}}</option>
+        {{/each}}
+    </select>
+
+    <label for="add-idStudent">Choose a Student: </label>
+    <select name="add-idStudent" id="add-idStudent">
+        <option value="TestScore">Select a Student</option>
+        {{#each data}}
+        <option value="{{this.idStudent}}">{{this.idStudent}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-testDate">Test Date: </label>
+    <input type="text" name="input-testDate" id="input-testDate" value = "mm-dd-yy">
+
+    <label for="input-testScore">Test Score: </label>
+    <input type="text" name="input-testScore" id="input-testScore">
+    
+    <label for="input-testNotes">Test Notes: </label>
+    <input type="text" name="input-testNotes" id="input-testNotes">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script type="text/javascript" src="/js/add_test_score.js"></script>

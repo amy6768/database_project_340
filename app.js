@@ -403,14 +403,13 @@ app.delete('/delete-parent-ajax/', function(req,res,next){
 // Parents section - Update a Parent.
 app.put('/put-parent-ajax', function(req,res,next){
     let data = req.body;
-    console.log(req)
     let idParent = data.idParent;
     let firstName = data.firstName
     let lastName = data.lastName;
     let phoneNumber = data.phoneNumber;
     console.log(idParent, firstName, lastName, phoneNumber)
   
-    let queryUpdateParent = `UPDATE Parents SET parentFirstName = ?, parentLastName = ?, phoneNumber WHERE Parents.idParent = ?`;
+    let queryUpdateParent = `UPDATE Parents SET parentFirstName = ?, parentLastName = ?, phoneNumber = ? WHERE Parents.idParent = ?`;
     
           // Run the 1st query
           db.pool.query(queryUpdateParent, [firstName, lastName, phoneNumber, idParent], function(error, rows, fields){

@@ -8,7 +8,6 @@ let updateParentForm = document.getElementById('update-parent-form-ajax');
 
 // Modify the objects we need
 updateParentForm.addEventListener("submit", function (e) {
-   
     // Prevent the form from submitting
     e.preventDefault();
 
@@ -23,6 +22,7 @@ updateParentForm.addEventListener("submit", function (e) {
     let firstNameValue = inputFirstName.value;
     let lastNameValue = inputLastName.value;
     let phoneNumberValue = inputPhoneNumber.value;
+    console.log(idParentValue, firstNameValue, lastNameValue, phoneNumberValue)
     // currently the database table for bsg_people does not allow updating values to NULL
     // so we must abort if being bassed NULL for homeworld
 
@@ -31,7 +31,7 @@ updateParentForm.addEventListener("submit", function (e) {
         return;
     }
 
-
+    
     // Put our data we want to send in a javascript object
     let data = {
         idParent: idParentValue,
@@ -50,6 +50,7 @@ updateParentForm.addEventListener("submit", function (e) {
 
             // Add the new data to the table
             updateRow(xhttp.response, idParentValue);
+            
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {

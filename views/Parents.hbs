@@ -76,18 +76,6 @@
 <p><strong>Browse Parents</strong></p>
 <table id = "parent-table" border="1" cellpadding="5" >
 
-    {{!-- Header section --}}
-
-    <!-- Option to pull in existing headers
-        <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-        </tr>
-    </thead>-->
     <thead >
 
         {{!-- For just the first row, we print each key of the row object as a header cell so we
@@ -126,7 +114,7 @@
 <p>Search by last name using the field below. Partial names are OK too!</p>
 <form id="search-parent-html" method='GET' action='/Parents'>
     <label for="input-parentLastName">Search by Last Name: </label>
-    <input type="text" name="parentLastName" id="update-parent-form-ajax">
+    <input type="text" name="parentLastName" id="input-parentLastName">
     <input type="submit">
     <a href='/Parents'><button>Reset</button></a>
 </form>
@@ -173,7 +161,6 @@
     <input type="submit" onclick="window.location.reload(true)">
 
 </form>
-
 <script src="./js/update_parent.js"></script>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

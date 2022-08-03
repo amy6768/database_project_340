@@ -189,9 +189,6 @@ app.get('/Tests', function(req, res)
         query1 = `SELECT * FROM Tests WHERE testName LIKE "${req.query.testName}%"`
     }
     
-    // Query 2 is the same in both cases
-    //let query2 = "SELECT * FROM Teachers;";
-
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
         
@@ -267,7 +264,6 @@ app.delete('/delete-test-ajax/', function(req,res,next){
 // Test section - Update a test.
 app.put('/put-test-ajax', function(req,res,next){
     let data = req.body;
-    console.log(req)
     let idTest = data.idTest;
     let testName = data.testName;
     let testDescription = data.testDescription;

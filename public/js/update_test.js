@@ -15,7 +15,7 @@ updateTestForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputidTest = document.getElementById("mySelect");
     let inputTestName = document.getElementById("update-testName");
-    let inputDescription = document.getElementById("update-update-testDescription");
+    let inputDescription = document.getElementById("update-testDescription");
 
     // Get the values from the form fields
     let idTestValue = inputidTest.value;
@@ -56,7 +56,7 @@ updateTestForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
-    console.log(data)
+    
     xhttp.send(JSON.stringify(data));
     
 
@@ -64,7 +64,7 @@ updateTestForm.addEventListener("submit", function (e) {
 
 
 function updateRow(data, idTest){
-    console.log(data)
+
     let parsedData = JSON.parse(data);
     
     let table = document.getElementById("test-table");
@@ -76,7 +76,7 @@ function updateRow(data, idTest){
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            console.log(updateRowIndex)
+         
 
             // Get td of homeworld value
             let td1 = updateRowIndex.getElementsByTagName("td")[1];

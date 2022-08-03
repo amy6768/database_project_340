@@ -75,19 +75,6 @@
 <div id="browse" border-style="display: block">
 <p><strong>Browse Tests</strong></p>
 <table id = "test-table" border="1" cellpadding="5" >
-
-    {{!-- Header section --}}
-
-    <!-- Option to pull in existing headers
-        <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-        </tr>
-    </thead>-->
     <thead >
 
         {{!-- For just the first row, we print each key of the row object as a header cell so we
@@ -111,7 +98,7 @@
 
             <td align = 'middle'>{{this.testDescription}}</td>
 
-            <td align = 'middle'><button onclick="deleteTest({{this.idTest}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteTest({{this.idTest}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -120,7 +107,7 @@
 
 <!-- Form to search for a student -->
 <h2>Search For a Test </h2>
-<p>Search by test name using the field below. Partial names are OK too!</p>
+<p>Search by first part of the test name.</p>
 <form id="search-test-html" method='GET' action='/Tests'>
     <label for="input-testName">Search by Test Name: </label>
     <input type="text" name="testName" id="input-testName-html-search">
@@ -138,7 +125,7 @@
     <label for="input-testDescription">Test Description: </label>
     <input type="text" name="input-testDescription" id="input-testDescription">
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 </form>
 
 <!-- Form to update a student -->
@@ -161,7 +148,7 @@
     <label for="update-testDescription">Test Description: </label>
     <input type="text" name="update-testDescription" id="update-testDescription">
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 
 </form>
 

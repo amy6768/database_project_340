@@ -107,12 +107,11 @@ app.post('/add-student-ajax', function(req, res)
     });
 
 // Students section - Delete a student.
-app.delete('/delete-student-ajax/', function(req,res,next){
+app.delete('/delete-student-ajax', function(req,res,next){
     let data = req.body;
     let idStudent = parseInt(data.id);
     let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
-  
-  
+    
     // Run the 1st query
     db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
         if (error) {
@@ -121,6 +120,7 @@ app.delete('/delete-student-ajax/', function(req,res,next){
         console.log(error);
         res.sendStatus(400);
         }
+        
                 
   })});
 

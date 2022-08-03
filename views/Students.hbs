@@ -115,7 +115,7 @@
 
             <td align = 'middle'>{{this.birthdate}}</td>
 
-            <td align = 'middle'><button onclick="deleteStudent({{this.idStudent}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteStudent({{this.idStudent}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -170,7 +170,7 @@
 
     <label for="update-birthdate">Birthdate: </label>
     <input type="text" name="update-birthdate" id="update-birthdate" value = "mm-dd-yy">
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload()">
 
 </form>
 

@@ -39,7 +39,6 @@ updateParentForm.addEventListener("submit", function (e) {
         lastName: lastNameValue,
         phoneNumber: phoneNumberValue,
     }
-    
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-parent-ajax", true);

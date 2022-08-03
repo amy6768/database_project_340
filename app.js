@@ -313,7 +313,7 @@ app.get('/Parents', function(req, res)
     let query1;
 
     // If there is no query string, we just perform a basic SELECT
-    if (req.query.testName === undefined)
+    if (req.query.parentLastName === undefined)
     {
         query1 = "SELECT * FROM Parents;";
     }
@@ -321,7 +321,8 @@ app.get('/Parents', function(req, res)
     // If there is a query string, we assume this is a search, and return desired results
     else
     {
-        query1 = `SELECT * FROM Parents WHERE testName LIKE "${req.query.firstName}%"`
+        query1 = `SELECT * FROM Parents WHERE parentLastName LIKE "${req.query.parentLastName}%"`
+        console.log(query1)
     }
     
     // Query 2 is the same in both cases

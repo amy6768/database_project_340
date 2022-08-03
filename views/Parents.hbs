@@ -114,7 +114,7 @@
 
             <td align = 'middle'>{{this.phoneNumber}}</td>
 
-            <td align = 'middle'><button onclick="deleteTest({{this.idParent}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteTest({{this.idParent}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -125,8 +125,8 @@
 <h2>Search For a Parent </h2>
 <p>Search by last name using the field below. Partial names are OK too!</p>
 <form id="search-parent-html" method='GET' action='/Parents'>
-    <label for="input-lastName">Search by Last Name: </label>
-    <input type="text" name="lastName" id="update-parent-form-ajax">
+    <label for="input-parentLastName">Search by Last Name: </label>
+    <input type="text" name="parentLastName" id="update-parent-form-ajax">
     <input type="submit">
     <a href='/Parents'><button>Reset</button></a>
 </form>
@@ -144,7 +144,7 @@
     <label for="input-phoneNumber">Phone Number: </label>
     <input type="text" name="input-phoneNumber" id="input-phoneNumber">
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 </form>
 
 <!-- Form to update a student -->
@@ -170,7 +170,7 @@
     <label for="update-phoneNumber">Phone Number: </label>
     <input type="text" name="update-phoneNumber" id="update-phoneNumber">
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 
 </form>
 

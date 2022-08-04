@@ -91,20 +91,20 @@ addRowToTable = (data) => {
     let row = document.createElement("TR");
     let idCell = document.createElement("TD");
     let testDateCell = document.createElement("TD");
-    let testScore = document.createElement("TD");
-    let idStudent = document.createElement("TD");
-    let idTest = document.createElement("TD");
-    let testNotes = document.createElement("TD");
+    let testScoreCell = document.createElement("TD");
+    let idStudentCell = document.createElement("TD");
+    let idTestCell = document.createElement("TD");
+    let testNotesCell = document.createElement("TD");
 
     let deleteCell = document.createElement("TD");
 
     // Fill the cells with correct data
     idCell.innerText = newRow.idTestScore;
     testDateCell.innerText = newRow.testDate;
-    testScore.innerText = newRow.testScore;
-    idStudent.innerText = newRow.idStudent;
-    idTest.innerText = newRow.idTest;
-    testNotes.innerText = newRow.testNotes;
+    testScoreCell.innerText = newRow.testScore;
+    idStudentCell.innerText = newRow.idStudent;
+    idTestCell.innerText = newRow.idTest;
+    testNotesCell.innerText = newRow.testNotes;
     
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";

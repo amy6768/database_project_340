@@ -99,7 +99,7 @@
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'><button onclick="deleteTest({{this.idStudentsTeacher}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteTest({{this.idStudentsTeacher}}), window.location.reload()"">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -115,20 +115,20 @@
     <label for="add-idTeacher">Choose a Test: </label>
     <select name="add-idTeacher" id="add-idTeacher">
         <option value="idTeacher">Select a Teacher</option>
-        {{#each teacherLastName}}
-        <option value="{{this.teacherLastName}}">{{this.teacherLastName}}</option>
+        {{#each idTeacher}}
+        <option value="{{this.idTeacher}}">{{this.teacherFirstName}}</option>
         {{/each}}
     </select>
 
     <label for="add-idStudent">Choose a Student: </label>
     <select name="add-idStudent" id="add-idStudent">
         <option value="idStudent">Select a Student</option>
-        {{#each studentFirstName}}
-        <option value="{{this.studentFirstName}}">{{this.studentFirstName}}</option>
+        {{#each idStudent}}
+        <option value="{{this.idStudent}}">{{this.studentFirstName}}</option>
         {{/each}}
     </select>
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

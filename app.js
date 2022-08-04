@@ -551,9 +551,9 @@ app.get('/StudentsTeachers', function(req, res)
     FROM ((StudentsTeachers INNER JOIN Students on StudentsTeachers.idStudent = Students.idStudent) \
     INNER JOIN Teachers on StudentsTeachers.idTeacher = Teachers.idTeacher);";
     
-    let query2 = "SELECT teacherLastName FROM Teachers;";
+    let query2 = "SELECT * FROM Teachers;";
 
-    let query3 = "SELECT studentFirstName FROM Students;";
+    let query3 = "SELECT * FROM Students;";
 
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
@@ -563,13 +563,13 @@ app.get('/StudentsTeachers', function(req, res)
 
         db.pool.query(query2, (error, rows, fields) => {
 
-            let teacherLastName = rows;
+            let idTeacher = rows;
 
             db.pool.query(query3, (error, rows, fields) => {
 
-                let studentFirstName = rows;
+                let idStudent = rows;
                 
-                return res.render('StudentsTeachers', {data: StudentsTeachers, teacherLastName: teacherLastName, studentFirstName: studentFirstName});
+                return res.render('StudentsTeachers', {data: StudentsTeachers, idTeacher: idTeacher, idStudent: idStudent});
             })
 
             
@@ -596,7 +596,7 @@ app.post('/add-students-teacher-ajax', function(req, res)
         //if (isNaN(birthdate))
         //{birthdate = 'NULL'}
         // Create the query and run it on the database
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
+        query1 = `INSERT INTO StudentsTeachers (idTeacher, idStudent) VALUES ('${data.idTeacher}', '${data.idStudent}')`;
     
         db.pool.query(query1, function(error, rows, fields){
     
@@ -609,7 +609,7 @@ app.post('/add-students-teacher-ajax', function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on Students
-                query2 = "SELECT * FROM Students;";
+                query2 = "SELECT * FROM StudentsTeachers;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400
@@ -632,12 +632,12 @@ app.post('/add-students-teacher-ajax', function(req, res)
 // StudentsTeachers section - Delete a StudentsTeachers.
 app.delete('/delete-students-teacher-ajax/', function(req,res,next){
     let data = req.body;
-    let idStudent = parseInt(data.id);
-    let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
+    let idStudentsTeacher = parseInt(data.id);
+    let deleteStudentsTeacher= `DELETE FROM StudentsTeachers WHERE idStudentsTeacher = ?`;
   
   
     // Run the 1st query
-    db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
+    db.pool.query(deleteStudentsTeacher, [idStudentsTeacher], function(error, rows, fields){
         if (error) {
   
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

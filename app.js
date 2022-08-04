@@ -448,35 +448,40 @@ app.put('/put-parent-ajax', function(req,res,next){
 
 // Everything for TestScores
 // TestScores section - display the table or search the table and display.
-app.get('/TestScores', function(req, res)
+app.get('/TestScores', async function(req, res)
 {
     // Declare Query 1
-    let query1;
-
-    // If there is no query string, we just perform a basic SELECT
-    if (req.query.studentLastName === undefined)
-    {
-        query1 = "SELECT TestScores.idTestScore, TestScores.testDate, TestScores.testScore, Students.studentFirstName, Tests.testName, TestScores.notes FROM ((TestScores INNER JOIN Students on TestScores.idStudent = Students.idStudent) INNER JOIN Tests on TestScores.idTest = Tests.idTest);";
-    }
-
-    // If there is a query string, we assume this is a search, and return desired results
     
-    // Query 2 is the same in both cases
-    //let query2 = "SELECT * FROM Teachers;";
+    let query1 = "SELECT TestScores.idTestScore, TestScores.testDate, TestScores.testScore, Students.studentFirstName, Tests.testName, TestScores.notes FROM ((TestScores INNER JOIN Students on TestScores.idStudent = Students.idStudent) INNER JOIN Tests on TestScores.idTest = Tests.idTest);";
+    
+    let query2 = 'SELECT testName FROM Tests';
+
+    let query3 = 'SELECT studentFirstName from Students';
+
+    const queryDatabase = (sql) => new Promise((resolve, reject) => {
+        db.pool.query(sql, function(error, rows, fields){
+            if (error){
+                reject(error)
+            }
+            resolve(rows.map(x => ({...x})))
+        })
+    })
 
     // Run the 1st query
-    db.pool.query(query1, function(error, rows, fields){
-        
-        // Save the student
-        let testScores = rows;
-        
-        return res.render('TestScores', {data: testScores});
-        
-    })
+    let testScores = await queryDatabase(query1)
+
+    let testNames = await queryDatabase(query2)
+    
+    let studentNames = await queryDatabase(query3)
+
+
+    console.log({testScores, testNames, studentNames})
+    return res.render('TestScores', {data: {testScores, testNames, studentNames}});
+
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
 // TestScores section - Adding a TestScores.
-app.post('/add-student-ajax', function(req, res) 
+app.post("/add-test-score-ajax", function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
@@ -486,7 +491,7 @@ app.post('/add-student-ajax', function(req, res)
         //{birthdate = 'NULL'}
         // Create the query and run it on the database
         query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
-    
+        
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error

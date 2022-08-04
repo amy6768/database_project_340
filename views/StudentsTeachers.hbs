@@ -116,7 +116,7 @@
     <select name="add-idTeacher" id="add-idTeacher">
         <option value="idTeacher">Select a Teacher</option>
         {{#each idTeacher}}
-        <option value="{{this.idTeacher}}">{{this.teacherFirstName}}</option>
+        <option value="{{this.idTeacher}}">{{this.teacherFirstName}} {{this.teacherLastName}}</option>
         {{/each}}
     </select>
 
@@ -124,7 +124,7 @@
     <select name="add-idStudent" id="add-idStudent">
         <option value="idStudent">Select a Student</option>
         {{#each idStudent}}
-        <option value="{{this.idStudent}}">{{this.studentFirstName}}</option>
+        <option value="{{this.idStudent}}">{{this.studentFirstName}} {{this.studentLastName}}</option>
         {{/each}}
     </select>
 

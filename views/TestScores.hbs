@@ -133,7 +133,7 @@
     <select name="add-idStudent" id="add-idStudent">
         <option value="TestScore">Select a Student</option>
         {{#each idStudent}}
-        <option value="{{this.idStudent}}">{{this.studentFirstName}}</option>
+        <option value="{{this.idStudent}}">{{this.studentFirstName}} {{this.studentLastName}}</option>
         {{/each}}
     </select>
     

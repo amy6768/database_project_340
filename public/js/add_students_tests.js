@@ -25,7 +25,7 @@ addTestScoreForm.addEventListener("submit", function (e) {
     // Put our data we want to send in a javascript object
     let data = {
         idStudent: idStudentValue,
-        idTestValue: idTestValue,
+        idTest: idTestValue,
     }
     
     // Setup our AJAX request
@@ -99,8 +99,8 @@ addRowToTable = (data) => {
 
     // Add the cells to the row 
     row.appendChild(idCell);
-    row.appendChild(idStudent);
-    row.appendChild(idTest);
+    row.appendChild(idStudentCell);
+    row.appendChild(idTestCell);
 
 
     // Add a row attribute so the deleteRow function can find a newly added row

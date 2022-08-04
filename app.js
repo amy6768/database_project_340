@@ -652,41 +652,44 @@ app.delete('/delete-students-teacher-ajax/', function(req,res,next){
 app.get('/StudentsTests', function(req, res)
 {
     // Declare Query 1
-    let query1;
-
-    // If there is no query string, we just perform a basic SELECT
-    if (req.query.studentLastName === undefined)
-    {
-        query1 = "SELECT StudentsTests.idStudentTest, Students.studentFirstName, Tests.testName FROM ((StudentsTests INNER JOIN Students on StudentsTests.idStudent = Students.idStudent) INNER JOIN Tests on StudentsTests.idTest = Tests.idTest);";
-    }
-
-    // If there is a query string, we assume this is a search, and return desired results
     
-    // Query 2 is the same in both cases
-    //let query2 = "SELECT * FROM Teachers;";
+    let query1 = "SELECT StudentsTests.idStudentTest, Students.studentFirstName, Tests.testName FROM ((StudentsTests INNER JOIN Students on StudentsTests.idStudent = Students.idStudent) INNER JOIN Tests on StudentsTests.idTest = Tests.idTest);";
+    
+    let query2 = "SELECT * FROM Students";
 
-    // Run the 1st query
+    let query3 = "SELECT * FROM Tests";
+
+
     db.pool.query(query1, function(error, rows, fields){
         
         // Save the student
-        let StudentsTests = rows;
+        let StudentTests = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let idStudent = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+                
+                let idTest = rows;
+                
+                return res.render('StudentsTests', {data: StudentTests, idStudent: idStudent, idTest: idTest});
+            })
+
+            
+        })
         
-        return res.render('StudentsTests', {data: StudentsTests});
         
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
 // StudentsTests section - Adding a StudentsTeachers.
-app.post('/add-students-teacher-ajax', function(req, res) 
+app.post('/add-students-tests-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-    
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
+
+        query1 = `INSERT INTO StudentsTests (idStudent, idTest) VALUES ('${data.idStudent}', '${data.idTest}')`;
     
         db.pool.query(query1, function(error, rows, fields){
     
@@ -699,7 +702,7 @@ app.post('/add-students-teacher-ajax', function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on Students
-                query2 = "SELECT * FROM Students;";
+                query2 = "SELECT * FROM StudentsTests;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400
@@ -720,14 +723,14 @@ app.post('/add-students-teacher-ajax', function(req, res)
     });
 
 // StudentsTests section - Delete a StudentsTeachers.
-app.delete('/delete-students-teacher-ajax/', function(req,res,next){
+app.delete('/delete-students-tests-ajax', function(req,res,next){
     let data = req.body;
-    let idStudent = parseInt(data.id);
-    let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
+    let idStudentsTests = parseInt(data.id);
+    let deleteStudentsTest= `DELETE FROM StudentsTests WHERE idStudentTest = ?`;
   
   
     // Run the 1st query
-    db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
+    db.pool.query(deleteStudentsTest, [idStudentsTests], function(error, rows, fields){
         if (error) {
   
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

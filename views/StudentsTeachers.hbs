@@ -115,15 +115,15 @@
     <label for="add-idTeacher">Choose a Test: </label>
     <select name="add-idTeacher" id="add-idTeacher">
         <option value="idTeacher">Select a Teacher</option>
-        {{#each data}}
-        <option value="{{this.teacherFirstName}}">{{this.teacherFirstName}}</option>
+        {{#each teacherLastName}}
+        <option value="{{this.teacherLastName}}">{{this.teacherLastName}}</option>
         {{/each}}
     </select>
 
     <label for="add-idStudent">Choose a Student: </label>
     <select name="add-idStudent" id="add-idStudent">
         <option value="idStudent">Select a Student</option>
-        {{#each data}}
+        {{#each studentFirstName}}
         <option value="{{this.studentFirstName}}">{{this.studentFirstName}}</option>
         {{/each}}
     </select>

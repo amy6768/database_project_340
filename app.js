@@ -454,30 +454,31 @@ app.get('/TestScores', async function(req, res)
     
     let query1 = "SELECT TestScores.idTestScore, TestScores.testDate, TestScores.testScore, Students.studentFirstName, Tests.testName, TestScores.notes FROM ((TestScores INNER JOIN Students on TestScores.idStudent = Students.idStudent) INNER JOIN Tests on TestScores.idTest = Tests.idTest);";
     
-    let query2 = 'SELECT testName FROM Tests';
+    let query2 = 'SELECT * FROM Tests';
 
-    let query3 = 'SELECT studentFirstName from Students';
+    let query3 = 'SELECT * from Students';
 
-    const queryDatabase = (sql) => new Promise((resolve, reject) => {
-        db.pool.query(sql, function(error, rows, fields){
-            if (error){
-                reject(error)
-            }
-            resolve(rows.map(x => ({...x})))
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let TestScores = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let idTest = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+
+                let idStudent = rows;
+                
+                return res.render('TestScores', {data: TestScores, idTest: idTest, idStudent: idStudent});
+            })
+
+            
         })
+        
+        
     })
-
-    // Run the 1st query
-    let testScores = await queryDatabase(query1)
-
-    let testNames = await queryDatabase(query2)
-    
-    let studentNames = await queryDatabase(query3)
-
-    
-    console.log({testScores, testNames, studentNames})
-    return res.render('TestScores', {data: {testScores, testNames, studentNames}});
-
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
 // TestScores section - Adding a TestScores.
@@ -490,7 +491,7 @@ app.post("/add-test-score-ajax", function(req, res)
         //if (isNaN(birthdate))
         //{birthdate = 'NULL'}
         // Create the query and run it on the database
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
+        query1 = `INSERT INTO TestScores (testDate, testScore, notes, idTest, idStudent) VALUES ('${data.testDate}', '${data.testScore}', '${data.testNotes}', '${data.idTest}', '${data.idStudent}')`;
         
         db.pool.query(query1, function(error, rows, fields){
     
@@ -503,7 +504,7 @@ app.post("/add-test-score-ajax", function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on Students
-                query2 = "SELECT * FROM Students;";
+                query2 = "SELECT * FROM TestScores;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400
@@ -524,14 +525,14 @@ app.post("/add-test-score-ajax", function(req, res)
     });
 
 // TestScores section - Delete a TestScores.
-app.delete('/delete-student-ajax/', function(req,res,next){
+app.delete('/delete-test-score-ajax/', function(req,res,next){
     let data = req.body;
-    let idStudent = parseInt(data.id);
-    let deleteStudent= `DELETE FROM Students WHERE idStudent = ?`;
+    let idTestScore = parseInt(data.id);
+    let deleteTest= `DELETE FROM TestScores WHERE idTestScore = ?`;
   
   
     // Run the 1st query
-    db.pool.query(deleteStudent, [idStudent], function(error, rows, fields){
+    db.pool.query(deleteTest, [idTestScore], function(error, rows, fields){
         if (error) {
   
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -546,28 +547,43 @@ app.delete('/delete-student-ajax/', function(req,res,next){
 app.get('/StudentsTeachers', function(req, res)
 {
     // Declare Query 1
-    let query1;
-
-    // If there is no query string, we just perform a basic SELECT
-    if (req.query.studentLastName === undefined)
-    {
-        query1 = "SELECT StudentsTeachers.idStudentsTeacher,Teachers.teacherFirstName, Students.studentFirstName FROM ((StudentsTeachers INNER JOIN Students on StudentsTeachers.idStudent = Students.idStudent) INNER JOIN Teachers on StudentsTeachers.idTeacher = Teachers.idTeacher);";
-    }
-
-    // If there is a query string, we assume this is a search, and return desired results
+    let query1 = "SELECT StudentsTeachers.idStudentsTeacher,Teachers.teacherFirstName, Students.studentFirstName \
+    FROM ((StudentsTeachers INNER JOIN Students on StudentsTeachers.idStudent = Students.idStudent) \
+    INNER JOIN Teachers on StudentsTeachers.idTeacher = Teachers.idTeacher);";
     
-    // Query 2 is the same in both cases
-    //let query2 = "SELECT * FROM Teachers;";
+    let query2 = "SELECT teacherLastName FROM Teachers;";
+
+    let query3 = "SELECT studentFirstName FROM Students;";
 
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
         
         // Save the student
         let StudentsTeachers = rows;
-        console.log(StudentsTeachers)
-        return res.render('StudentsTeachers', {data: StudentsTeachers});
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let teacherLastName = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+
+                let studentFirstName = rows;
+                
+                return res.render('StudentsTeachers', {data: StudentsTeachers, teacherLastName: teacherLastName, studentFirstName: studentFirstName});
+            })
+
+            
+        })
+        
         
     })
+
+    //db.pool.query(query2, function(error, rows, fields){
+        
+        // Save the student
+        //let Teachers = rows;
+        //console.log(Teachers)
+        //return res.render('Teachers', {data: Teachers})});
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
 // StudentsTeachers section - Adding a StudentsTeachers.

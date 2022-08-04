@@ -13,14 +13,14 @@ addTestScoreForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputIdTestScore = document.getElementById("add-idTestScore");
+    let inputIdTest = document.getElementById("add-idTest");
     let inputIdStudent = document.getElementById("add-idStudent");
     let inputTestDate = document.getElementById("input-testDate");
     let inputTestScore = document.getElementById("input-testScore");
     let inputNotes = document.getElementById("input-testNotes");
 
     // Get the values from the form fields
-    let idTestScoreValue = inputIdTestScore.value;
+    let idTestValue = inputIdTest.value;
     let idStudentValue = inputIdStudent.value;
     let testDateValue = inputTestDate.value;
     let testScoreValue = inputTestScore.value;
@@ -29,7 +29,7 @@ addTestScoreForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        idTestScore: idTestScoreValue,
+        idTest: idTestValue,
         idStudent: idStudentValue,
         testDate: testDateValue,
         testScore: testScoreValue,
@@ -56,7 +56,7 @@ addTestScoreForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            idTestScore.value = '';
+            idTest.value = '';
             idStudent.value = '';
             testDate.value = '';
             testScore.value = '';
@@ -128,11 +128,16 @@ addRowToTable = (data) => {
 
     // Find drop down menu, create a new option, fill data in the option (full name, id),
     // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.firstname + ' ' +  newRow.lastName;
-    option.value = newRow.id;
-    selectMenu.add(option);
+    let selectTest = document.getElementById("ad-idTest");
+    let selectStudent = document.getElementById("add-idStudent");
+    let date = document.createElement("input-testDate");
+    let score = document.createElement("input-testScore");
+    let note = document.createElement("input-testNotes");
+    date.text = newRow.date
+    score.text = newRow.score;
+    note.text = newRow.note;
+    selectTest.add(option);
+    selectStudent.add(option);
     // End of new step 8 code.
 }
 

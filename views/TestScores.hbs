@@ -95,20 +95,20 @@
 
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         <!--{{#each data}}-->
-        <tr data-value = {{testScores.idTest}}>
-            <td align = 'middle'>{{testScores.idTestScore}}</td>
+        <tr data-value = {{this.idTestScore}}>
+            <td align = 'middle'>{{this.idTestScore}}</td>
 
-            <td align = 'middle'> {{testScores.testDate}}</td>
+            <td align = 'middle'> {{this.testDate}}</td>
 
-            <td align = 'middle'>{{testScores.testScore}}</td>
+            <td align = 'middle'>{{this.testScore}}</td>
 
-            <td align = 'middle'>{{testScores.studentFirstName}}</td>
+            <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'>{{testScores.testName}}</td>
+            <td align = 'middle'>{{this.testName}}</td>
 
-            <td align = 'middle'>{{testScores.notes}}</td>
+            <td align = 'middle'>{{this.notes}}</td>
 
-            <td align = 'middle'><button onclick="deleteTest({{this.idTestScore}})">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteTest({{this.idTestScore}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -121,19 +121,19 @@
 <h2>Add a new test score</h2>
 <p>To add a new test score, please enter the test information below and click 'Submit'!</p>
 <form id="add-test-score-ajax">
-    <label for="add-idTestScore">Choose a Test: </label>
-    <select name="add-idTestScore" id="add-idTestScore">
-        <option value="TestScore">Select a Test</option>
-        {{#each data}}
-        <option value="{{this.testName}}">{{this.testName}}</option>
+    <label for="add-idTest">Choose a Test: </label>
+    <select name="add-idTest" id="add-idTest">
+        <option value="Test">Select a Test</option>
+        {{#each idTest}}
+        <option value="{{this.idTest}}">{{this.testName}}</option>
         {{/each}}
     </select>
 
     <label for="add-idStudent">Choose a Student: </label>
     <select name="add-idStudent" id="add-idStudent">
         <option value="TestScore">Select a Student</option>
-        {{#each data}}
-        <option value="{{this.studentFirstName}}">{{this.studentFirstName}}</option>
+        {{#each idStudent}}
+        <option value="{{this.idStudent}}">{{this.studentFirstName}}</option>
         {{/each}}
     </select>
     
@@ -146,7 +146,7 @@
     <label for="input-testNotes">Test Notes: </label>
     <input type="text" name="input-testNotes" id="input-testNotes">
 
-    <input type="submit">
+    <input type="submit" onclick="window.location.reload(true)">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}

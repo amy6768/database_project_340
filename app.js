@@ -474,7 +474,7 @@ app.get('/TestScores', async function(req, res)
     
     let studentNames = await queryDatabase(query3)
 
-
+    
     console.log({testScores, testNames, studentNames})
     return res.render('TestScores', {data: {testScores, testNames, studentNames}});
 
@@ -564,7 +564,7 @@ app.get('/StudentsTeachers', function(req, res)
         
         // Save the student
         let StudentsTeachers = rows;
-        
+        console.log(StudentsTeachers)
         return res.render('StudentsTeachers', {data: StudentsTeachers});
         
     })

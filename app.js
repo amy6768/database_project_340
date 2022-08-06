@@ -1004,7 +1004,7 @@ app.put('/put-intervention-ajax', function(req,res,next){
 app.delete('/delete-intervention-ajax/', function(req,res,next){
     let data = req.body;
     let idIntervention = parseInt(data.id);
-    let deleteIntervention= `DELETE FROM Interventions WHERE idInterventions = ?`;
+    let deleteIntervention= `DELETE FROM Interventions WHERE idIntervention = ?`;
 
     console.log(data);
     console.log(idIntervention);

@@ -914,7 +914,7 @@ app.delete('/delete-teacher-ajax/', function(req,res,next){
     })
 });                                                       // received back from the query
 
-// Add a Intervention
+// Add an Intervention
 app.post('/add-intervention-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object

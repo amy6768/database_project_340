@@ -1026,7 +1026,7 @@ app.delete('/delete-intervention-ajax/', function(req,res,next){
 app.get('/StudentsParents', function(req, res)
 {
     // Declare Query 1
-    let query1 = "SELECT StudentsParents.idStudentsParents,Teachers.parentFirstName, Students.studentFirstName \
+    let query1 = "SELECT StudentsParents.idStudentsParent, Parents.parentFirstName, Students.studentFirstName \
     FROM ((StudentsParents INNER JOIN Students on StudentsParents.idStudent = Students.idStudent) \
     INNER JOIN Parents on StudentsParents.idParent = Parents.idParent);";
     
@@ -1125,10 +1125,6 @@ app.delete('/delete-students-parent-ajax/', function(req,res,next){
         }
                 
   })});
-
-
-
-
 
 
 /*

@@ -1021,6 +1021,115 @@ app.delete('/delete-intervention-ajax/', function(req,res,next){
                 
   })});
 
+// Everything for StudentsParents
+// StudentsParent section - display the table or search the table and display.
+app.get('/StudentsParents', function(req, res)
+{
+    // Declare Query 1
+    let query1 = "SELECT StudentsParents.idStudentsParents,Teachers.parentFirstName, Students.studentFirstName \
+    FROM ((StudentsParents INNER JOIN Students on StudentsParents.idStudent = Students.idStudent) \
+    INNER JOIN Parents on StudentsParents.idParent = Parents.idParent);";
+    
+    let query2 = "SELECT * FROM Parents;";
+
+    let query3 = "SELECT * FROM Students;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let StudentsParents = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let idParent = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+
+                let idStudent = rows;
+                
+                return res.render('StudentsParents', {data: StudentsParents, idParent: idParent, idStudent: idStudent});
+            })
+
+            
+        })
+        
+        
+    })
+
+    //db.pool.query(query2, function(error, rows, fields){
+        
+        // Save the student
+        //let parents = rows;
+        //console.log(Teachers)
+        //return res.render('Teachers', {data: Teachers})});
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+
+// StudentsParents section - Adding a StudentsParents.
+app.post('/add-students-parent-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        //let birthdate = data.birthdate;
+        //if (isNaN(birthdate))
+        //{birthdate = 'NULL'}
+        // Create the query and run it on the database
+        query1 = `INSERT INTO StudentsParents (idParent, idStudent) VALUES ('${data.idParent}', '${data.idStudent}')`;
+    
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM StudentsParents;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
+// StudentsParents section - Delete a StudentsParents.
+app.delete('/delete-students-parent-ajax/', function(req,res,next){
+    let data = req.body;
+    let idStudentsParent = parseInt(data.id);
+    let deleteStudentsParent= `DELETE FROM StudentsParents WHERE idStudentsParent = ?`;
+  
+  
+    // Run the 1st query
+    db.pool.query(deleteStudentsParent, [idStudentsParent], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
+
+
+
+
+
 
 /*
     LISTENER

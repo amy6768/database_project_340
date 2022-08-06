@@ -15,7 +15,7 @@ updateInterventionForm.addEventListener("submit", function (e) {
     // Get form fields we need to get data from
     let inputidIntervention = document.getElementById("mySelect");
     let inputinterventionName = document.getElementById("update-interventionName");
-    let inputinverventionDescription = document.getElementById("update-interventionDescription");
+    let inputinterventionDescription = document.getElementById("update-interventionDescription");
 
     // Get the values from the form fields
     let idInterventionValue = inputidIntervention.value;

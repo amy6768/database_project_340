@@ -1022,13 +1022,6 @@ app.delete('/delete-intervention-ajax/', function(req,res,next){
   })});
 
 
-
-
-
-
-
-
-
 /*
     LISTENER
 */

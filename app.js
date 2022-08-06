@@ -1126,6 +1126,111 @@ app.delete('/delete-students-parent-ajax/', function(req,res,next){
                 
   })});
 
+// Everything for StudentsInterventions
+// StudentsInerventions section - display the table or search the table and display.
+app.get('/StudentsInterventions', function(req, res)
+{
+    // Declare Query 1
+    let query1 = "SELECT StudentsInterventions.idStudentsIntervention, Interventions.interventionName, Students.studentFirstName \
+    FROM ((StudentsInterventions INNER JOIN Students on StudentsInterventions.idStudent = Students.idStudent) \
+    INNER JOIN Interventions on StudentsInterventions.idIntervention = Interventions.idIntervention);";
+    
+    let query2 = "SELECT * FROM Interventions;";
+
+    let query3 = "SELECT * FROM Students;";
+
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let StudentsInterventions = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let idIntervention = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+
+                let idStudent = rows;
+                
+                return res.render('StudentsInterventions', {data: StudentsInterventions, idIntervention: idIntervention, idStudent: idStudent});
+            })
+
+            
+        })
+        
+        
+    })
+
+    //db.pool.query(query2, function(error, rows, fields){
+        
+        // Save the student
+        //let parents = rows;
+        //console.log(Teachers)
+        //return res.render('Teachers', {data: Teachers})});
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+
+// Adding a StudentInterventions
+app.post('/add-students-intervention-ajax', function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        // Create the query and run it on the database
+        query1 = `INSERT INTO StudentsInterventions (idIntervention, idStudent) VALUES ('${data.idIntervention}', '${data.idStudent}')`;
+    
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM StudentsInterventions;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
+// Delete a StudentsIntervention
+app.delete('/delete-students-intervention-ajax/', function(req,res,next){
+    let data = req.body;
+    let idStudentsIntervention  = parseInt(data.id);
+    let deleteStudentsIntervention= `DELETE FROM StudentsIntervention WHERE idStudentsIntervention = ?`;
+  
+  
+    // Run the 1st query
+    db.pool.query(deleteStudentsIntervention, [idStudentsIntervention], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
+
+
+
+
 
 /*
     LISTENER

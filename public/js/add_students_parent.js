@@ -4,10 +4,10 @@
 //  Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 // Get the objects we need to modify
-let addTestScoreForm = document.getElementById("add-students-parent-ajax");
+let addStudentParentForm = document.getElementById("add-students-parent-ajax");
 
 // Modify the objects we need
-addTestScoreForm.addEventListener("submit", function (e) {
+addStudentParentForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -19,8 +19,6 @@ addTestScoreForm.addEventListener("submit", function (e) {
     // Get the values from the form fields
     let idParentValue = inputIdParent.value;
     let idStudentValue = inputIdStudent.value;
-
-
 
     // Put our data we want to send in a javascript object
     let data = {
@@ -90,7 +88,6 @@ addRowToTable = (data) => {
     idParentCell.innerText = newRow.idParent;
     idStudentCell.innerText = newRow.idStudent;
 
-    
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){

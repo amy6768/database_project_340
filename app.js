@@ -1126,6 +1126,7 @@ app.delete('/delete-students-parent-ajax/', function(req,res,next){
                 
   })});
 
+
 // Everything for StudentsInterventions
 // StudentsInerventions section - display the table or search the table and display.
 app.get('/StudentsInterventions', function(req, res)
@@ -1152,7 +1153,9 @@ app.get('/StudentsInterventions', function(req, res)
             db.pool.query(query3, (error, rows, fields) => {
 
                 let idStudent = rows;
-                
+                console.log(StudentsInterventions)
+                console.log(idIntervention)
+                console.log(idStudent)
                 return res.render('StudentsInterventions', {data: StudentsInterventions, idIntervention: idIntervention, idStudent: idStudent});
             })
 
@@ -1213,8 +1216,8 @@ app.post('/add-students-intervention-ajax', function(req, res)
 // Delete a StudentsIntervention
 app.delete('/delete-students-intervention-ajax/', function(req,res,next){
     let data = req.body;
-    let idStudentsIntervention  = parseInt(data.id);
-    let deleteStudentsIntervention= `DELETE FROM StudentsIntervention WHERE idStudentsIntervention = ?`;
+    let idStudentsIntervention= parseInt(data.id);
+    let deleteStudentsIntervention= `DELETE FROM StudentsInterventions WHERE idStudentsIntervention = ?`;
   
   
     // Run the 1st query

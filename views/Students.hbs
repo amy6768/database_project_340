@@ -84,36 +84,20 @@
 <p><strong>Browse Students</strong></p>
 <table id = "student-table" border="1" cellpadding="5" >
 
-    {{!-- Header section --}}
-
-    <!-- Option to pull in existing headers
-        <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-        </tr>
-    </thead>-->
     <thead >
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr >
-            <th style="text-align:center; width: 0.1%"> ID</th>
-            <th style="text-align:center; width: 0.1%" > First Name</th>
-            <th style="text-align:center; width: 0.1%" > Last Name</th>
-            <th style="text-align:center; width: 0.1%" > Birthdate</th>
-            <th style="text-align:center; width: 0.1%" > Delete</th>
+            <th style="text-align:center"> ID</th>
+            <th style="text-align:center" > First Name</th>
+            <th style="text-align:center" > Last Name</th>
+            <th style="text-align:center" > Birthdate</th>
+            <th style="text-align:center" > Delete</th>
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        <!--{{#each data}}-->
         <tr data-value = {{this.idStudent}}>
             <td align = 'middle'>{{this.idStudent}}</td>
 

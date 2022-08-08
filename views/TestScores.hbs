@@ -52,7 +52,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Interventions <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/Interventions">Interventions</a></li>
-          <li><a href="/InterventionProgress">Intervention Progress</a></li>
+          <li><a href="/InterventionsProgress">Intervention Progress</a></li>
         </ul>
       </li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Testing <span class="caret"></span></a>
@@ -85,9 +85,6 @@
 <table id = "testScores-table" border="1" cellpadding="5" >
 
     <thead >
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr >
             <th style="text-align:center; "> Test/Scores ID </th>
             <th style="text-align:center; " > Test Date</th>
@@ -101,8 +98,6 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        <!--{{#each data}}-->
         <tr data-value = {{this.idTestScore}}>
             <td align = 'middle'>{{this.idTestScore}}</td>
 
@@ -124,7 +119,6 @@
 <script src="./js/delete_test_score.js"></script>
 
 {{!-- Form to add a record to the table  --}}
-
 
 <h2>Add a new test score</h2>
 <p>To add a new test score, please enter the test information below and click 'Submit'!</p>

@@ -73,27 +73,26 @@
 {{!-- Create a table --}}
 
 <div id="browse" border-style="display: block">
-<p><strong>Browse Intervention Progress</strong></p>
-<table id = "interventionProgress-table" border="1" cellpadding="5" >
+<p><strong>Browse Interventions Progress</strong></p>
+<table id = "interventionsProgress-table" border="1" cellpadding="5" >
 
     <thead >
 
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr >
-            <th style="text-align:center; "> Intervention Progress ID </th>
+            <th style="text-align:center; "> Interventions Progress ID </th>
             <th style="text-align:center; " > Intervention </th>
             <th style="text-align:center; " > Student </th>
-            <th style="text-align:center; " > Date </th>
-            <th style="text-align:center; " > Intervention Progress </th>
-            <th style="text-align:center; " > Notes </th>
+            <th style="text-align:center; " > Start Date </th>
+            <th style="text-align:center; " > Intervention Notes </th>
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the id, intervention name, student name, date, and intervention notes, in order --}}
         <!--{{#each data}}-->
         <tr data-value = {{this.idInterventionProgress}}>
             <td align = 'middle'>{{this.idInterventionProgress}}</td>
@@ -102,25 +101,23 @@
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'>{{this.date}}</td>
+            <td align = 'middle'>{{this.startDate}}</td>
 
-            <td align = 'middle'>{{this.interventionProgress}}</td>
+            <td align = 'middle'>{{this.interventionNotes}}</td>
 
-            <td align = 'middle'>{{this.notes}}</td>
-
-            <td align = 'middle'><button onclick="deleteInterventionProgress({{this.idInterventionProgress}}), window.location.reload()">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteInterventionsProgress({{this.idInterventionProgress}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
 </table>
-<script src="./js/delete_intervention_progress.js"></script>
+<script src="./js/delete_interventions_progress.js"></script>
 
 {{!-- Form to add a record to the table  --}}
 
 
 <h2>Add a new intervention progress</h2>
 <p>To add an intervention progress, please enter the information below and click 'Submit'!</p>
-<form id="add-intervention-progress-ajax">
+<form id="add-interventions-progress-ajax">
     <label for="add-idIntervention">Choose an Intervention: </label>
     <select name="add-idIntervention" id="add-idIntervention">
         <option value="Intervention">Select an Intervention</option>
@@ -137,17 +134,14 @@
         {{/each}}
     </select>
     
-    <label for="input-date">Date: </label>
-    <input type="text" name="input-date" id="input-date" value = "mm-dd-yy">
+    <label for="input-startDate"> Start Date: </label>
+    <input type="text" name="input-startDate" id="input-startDate" value = "mm-dd-yy">
 
-    <label for="input-interventionProgress">Intervention Progress: </label>
-    <input type="text" name="input-interventionProgress" id="input-interventionProgress">
+    <label for="input-interventionsNotes">Intervention Notes: </label>
+    <input type="text" name="input-interventionNotes" id="input-interventionNotes">
     
-    <label for="input-notes">Notes: </label>
-    <input type="text" name="input-notes" id="input-notes">
-
     <input type="submit" onclick="window.location.reload(true)">
 </form>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script type="text/javascript" src="/js/add_intervention_progress.js"></script>
+<script type="text/javascript" src="/js/add_interventions_progress.js"></script>

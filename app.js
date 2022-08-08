@@ -1232,6 +1232,101 @@ app.delete('/delete-students-intervention-ajax/', function(req,res,next){
   })});
 
 
+// Everything for InterventionProgress
+// InterventionProgress section - display the table or search the table and display.
+app.get('/InterventionProgress', async function(req, res)
+{
+    // Declare Query 1
+    
+    let query1 = "SELECT InterventionProgress.idInterventionProgress, InterventionProgress.date, InterventionProgress.testScore, Students.studentFirstName, Tests.testName, TestScores.notes FROM ((TestScores INNER JOIN Students on TestScores.idStudent = Students.idStudent) INNER JOIN Tests on TestScores.idTest = Tests.idTest);";
+    
+    let query2 = 'SELECT * FROM Tests';
+
+    let query3 = 'SELECT * from Students';
+
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the student
+        let TestScores = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+
+            let idTest = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+
+                let idStudent = rows;
+                
+                return res.render('TestScores', {data: TestScores, idTest: idTest, idStudent: idStudent});
+            })
+
+            
+        })
+        
+        
+    })
+});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+
+// TestScores section - Adding a TestScores.
+app.post("/add-test-score-ajax", function(req, res) 
+    {
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        //let birthdate = data.birthdate;
+        //if (isNaN(birthdate))
+        //{birthdate = 'NULL'}
+        // Create the query and run it on the database
+        query1 = `INSERT INTO TestScores (testDate, testScore, notes, idTest, idStudent) VALUES ('${data.testDate}', '${data.testScore}', '${data.testNotes}', '${data.idTest}', '${data.idStudent}')`;
+        
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            else
+            {
+                // If there was no error, perform a SELECT * on Students
+                query2 = "SELECT * FROM TestScores;";
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
+                    if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                        console.log(error);
+                        res.sendStatus(400);
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });
+
+// TestScores section - Delete a TestScores.
+app.delete('/delete-test-score-ajax/', function(req,res,next){
+    let data = req.body;
+    let idTestScore = parseInt(data.id);
+    let deleteTest= `DELETE FROM TestScores WHERE idTestScore = ?`;
+  
+  
+    // Run the 1st query
+    db.pool.query(deleteTest, [idTestScore], function(error, rows, fields){
+        if (error) {
+  
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+                
+  })});
 
 
 

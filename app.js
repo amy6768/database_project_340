@@ -68,8 +68,12 @@ app.post('/add-student-ajax', function(req, res)
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
+
+        let birthday = data.birthdate
+        if (birthday === "" || birthday === "mm-dd-yy")
+        {birthday = 'NULL'}
     
-        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
+        query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${birthday}')`;
     
         db.pool.query(query1, function(error, rows, fields){
     

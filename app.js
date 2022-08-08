@@ -1234,30 +1234,30 @@ app.delete('/delete-students-intervention-ajax/', function(req,res,next){
 
 // Everything for InterventionProgress
 // InterventionProgress section - display the table or search the table and display.
-app.get('/InterventionProgress', async function(req, res)
+app.get('/InterventionsProgress', async function(req, res)
 {
     // Declare Query 1
     
-    let query1 = "SELECT InterventionProgress.idInterventionProgress, InterventionProgress.date, InterventionProgress.testScore, Students.studentFirstName, Tests.testName, TestScores.notes FROM ((TestScores INNER JOIN Students on TestScores.idStudent = Students.idStudent) INNER JOIN Tests on TestScores.idTest = Tests.idTest);";
+    let query1 = "SELECT InterventionsProgress.idInterventionProgress, InterventionsProgress.startDate, InterventionsProgress.interventionNotes, Students.studentFirstName, Interventions.InterventionName FROM ((InterventionsProgress INNER JOIN Students on InterventionsProgress.idStudent = Students.idStudent) INNER JOIN Interventions on InterventionsProgress.idIntervention = Interventions.idIntervention);";
     
-    let query2 = 'SELECT * FROM Tests';
+    let query2 = 'SELECT * FROM Interventions';
 
     let query3 = 'SELECT * from Students';
 
     db.pool.query(query1, function(error, rows, fields){
         
         // Save the student
-        let TestScores = rows;
+        let InterventionsProgress = rows;
 
         db.pool.query(query2, (error, rows, fields) => {
 
-            let idTest = rows;
+            let idIntervention = rows;
 
             db.pool.query(query3, (error, rows, fields) => {
 
                 let idStudent = rows;
                 
-                return res.render('TestScores', {data: TestScores, idTest: idTest, idStudent: idStudent});
+                return res.render('InterventionsProgress', {data: InterventionsProgress, idIntervention: idIntervention, idStudent: idStudent});
             })
 
             
@@ -1267,8 +1267,8 @@ app.get('/InterventionProgress', async function(req, res)
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
-// TestScores section - Adding a TestScores.
-app.post("/add-test-score-ajax", function(req, res) 
+// Adding an InterventionsProgress
+app.post("/add-interventions-progress-ajax", function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
@@ -1277,7 +1277,7 @@ app.post("/add-test-score-ajax", function(req, res)
         //if (isNaN(birthdate))
         //{birthdate = 'NULL'}
         // Create the query and run it on the database
-        query1 = `INSERT INTO TestScores (testDate, testScore, notes, idTest, idStudent) VALUES ('${data.testDate}', '${data.testScore}', '${data.testNotes}', '${data.idTest}', '${data.idStudent}')`;
+        query1 = `INSERT INTO InterventionsProgress (startDate, interventioNotes, idIntervention, idStudent) VALUES ('${data.startDate}', '${data.interventioNotes}', '${data.idIntervention}', '${data.idStudent}')`;
         
         db.pool.query(query1, function(error, rows, fields){
     
@@ -1290,7 +1290,7 @@ app.post("/add-test-score-ajax", function(req, res)
             else
             {
                 // If there was no error, perform a SELECT * on Students
-                query2 = "SELECT * FROM TestScores;";
+                query2 = "SELECT * FROM InterventionsProgress;";
                 db.pool.query(query2, function(error, rows, fields){
     
                     // If there was an error on the second query, send a 400
@@ -1310,15 +1310,15 @@ app.post("/add-test-score-ajax", function(req, res)
         })
     });
 
-// TestScores section - Delete a TestScores.
-app.delete('/delete-test-score-ajax/', function(req,res,next){
+//InterventionsProgress Section - Delete an Interventions Progress
+app.delete('/delete-interventions-progress-ajax/', function(req,res,next){
     let data = req.body;
-    let idTestScore = parseInt(data.id);
-    let deleteTest= `DELETE FROM TestScores WHERE idTestScore = ?`;
+    let idInterventionProgress = parseInt(data.id);
+    let deleteInterventionsProgress = `DELETE FROM InterventionsProgress WHERE idInterventionsProgress = ?`;
   
   
     // Run the 1st query
-    db.pool.query(deleteTest, [idTestScore], function(error, rows, fields){
+    db.pool.query(deleteInterventionsProgress, [idInterventionProgress], function(error, rows, fields){
         if (error) {
   
         // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

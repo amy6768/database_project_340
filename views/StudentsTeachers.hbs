@@ -94,6 +94,9 @@
 
     {{!-- Body section --}}
     <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        <!--{{#each data}}-->
         <tr data-value = {{this.idStudentsTeacher}}>
             <td align = 'middle'>{{this.idStudentsTeacher}}</td>
 
@@ -101,7 +104,7 @@
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'><button onclick="deleteTest({{this.idStudentsTeacher}}), window.location.reload()"">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteTest({{this.idStudentsTeacher}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>

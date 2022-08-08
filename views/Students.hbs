@@ -38,7 +38,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Students <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="/Students">Students</a></li>
-          <li><a href="/StudentsInteverntions">Students Interventions</a></li>
+          <li><a href="/StudentsInterventions">Students Interventions</a></li>
           <li><a href="/StudentsTeachers">Students Teachers</a></li>
           <li><a href="/StudentsTests">Students Tests</a></li>
           <li><a href="/StudentsParents">Students Parents</a></li>
@@ -86,6 +86,8 @@
 
     <thead >
 
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
         <tr >
             <th style="text-align:center"> ID</th>
             <th style="text-align:center" > First Name</th>
@@ -97,7 +99,8 @@
 
     {{!-- Body section --}}
     <tbody>
-
+        
+        <!--{{#each data}}-->
         <tr data-value = {{this.idStudent}}>
             <td align = 'middle'>{{this.idStudent}}</td>
 

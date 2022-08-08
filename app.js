@@ -69,10 +69,6 @@ app.post('/add-student-ajax', function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
     
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
         query1 = `INSERT INTO Students (studentFirstName, studentLastName, birthdate) VALUES ('${data.studentFirstName}', '${data.studentLastName}', '${data.birthdate}')`;
     
         db.pool.query(query1, function(error, rows, fields){
@@ -127,12 +123,10 @@ app.delete('/delete-student-ajax', function(req,res,next){
 // Students section - Update a student.
 app.put('/put-student-ajax', function(req,res,next){
     let data = req.body;
-    console.log(req)
     let idStudent = data.idStudent;
     let studentFirstName = data.studentFirstName;
     let studentLastName = data.studentLastName;
     let birthdate = data.birthdate;
-    console.log(idStudent, studentFirstName, studentLastName, birthdate)
   
     let queryUpdateStudent = `UPDATE Students SET studentFirstName = ?, studentLastName = ?, birthdate = ? WHERE Students.idStudent = ?`;
     
@@ -198,18 +192,14 @@ app.get('/Tests', function(req, res)
         return res.render('Tests', {data: tests});
         
     })
-});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+}); 
 
 // test section - Adding a test.
 app.post('/add-test-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-    
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
+
         query1 = `INSERT INTO Tests (testName, testDescription) VALUES ('${data.testName}', '${data.testDescription}')`;
     
         db.pool.query(query1, function(error, rows, fields){
@@ -222,7 +212,7 @@ app.post('/add-test-ajax', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on Tests
                 query2 = "SELECT * FROM Tests;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -285,7 +275,7 @@ app.put('/put-test-ajax', function(req,res,next){
               // table on the front-end
               else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on Tests
                 query2 = "SELECT * FROM Tests;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -306,7 +296,6 @@ app.put('/put-test-ajax', function(req,res,next){
   })});
 
 // Everything for Parents:
-
 app.get('/Parents', function(req, res)
 {
     // Declare Query 1
@@ -325,8 +314,6 @@ app.get('/Parents', function(req, res)
         console.log(query1)
     }
     
-    // Query 2 is the same in both cases
-    //let query2 = "SELECT * FROM Teachers;";
 
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
@@ -337,18 +324,14 @@ app.get('/Parents', function(req, res)
         return res.render('Parents', {data: tests});
         
     })
-});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+});  
 
 // Parent section - Adding a parent.
 app.post('/add-parent-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-    
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
+
         query1 = `INSERT INTO Parents (parentFirstName, parentLastName, phoneNumber) VALUES ('${data.firstName}', '${data.lastName}', '${data.phoneNumber}')`;
     
         db.pool.query(query1, function(error, rows, fields){
@@ -361,7 +344,7 @@ app.post('/add-parent-ajax', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on Parents
                 query2 = "SELECT * FROM Parents;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -382,7 +365,7 @@ app.post('/add-parent-ajax', function(req, res)
         })
     });
 
-// Tests section - Delete a student.
+// Tests section - Delete a parent.
 app.delete('/delete-parent-ajax/', function(req,res,next){
     let data = req.body;
     let idParent = parseInt(data.id);
@@ -425,7 +408,7 @@ app.put('/put-parent-ajax', function(req,res,next){
               // table on the front-end
               else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on Parents
                 query2 = "SELECT * FROM Parents;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -479,7 +462,7 @@ app.get('/TestScores', async function(req, res)
         
         
     })
-});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+}); 
 
 // TestScores section - Adding a TestScores.
 app.post("/add-test-score-ajax", function(req, res) 
@@ -487,10 +470,6 @@ app.post("/add-test-score-ajax", function(req, res)
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
     
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
         query1 = `INSERT INTO TestScores (testDate, testScore, notes, idTest, idStudent) VALUES ('${data.testDate}', '${data.testScore}', '${data.testNotes}', '${data.idTest}', '${data.idStudent}')`;
         
         db.pool.query(query1, function(error, rows, fields){
@@ -503,7 +482,7 @@ app.post("/add-test-score-ajax", function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on TestScores
                 query2 = "SELECT * FROM TestScores;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -578,24 +557,15 @@ app.get('/StudentsTeachers', function(req, res)
         
     })
 
-    //db.pool.query(query2, function(error, rows, fields){
-        
-        // Save the student
-        //let Teachers = rows;
-        //console.log(Teachers)
-        //return res.render('Teachers', {data: Teachers})});
-});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+ 
+});
 
 // StudentsTeachers section - Adding a StudentsTeachers.
 app.post('/add-students-teacher-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
-    
-        //let birthdate = data.birthdate;
-        //if (isNaN(birthdate))
-        //{birthdate = 'NULL'}
-        // Create the query and run it on the database
+
         query1 = `INSERT INTO StudentsTeachers (idTeacher, idStudent) VALUES ('${data.idTeacher}', '${data.idStudent}')`;
     
         db.pool.query(query1, function(error, rows, fields){
@@ -608,7 +578,7 @@ app.post('/add-students-teacher-ajax', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on StudentsTeachers
                 query2 = "SELECT * FROM StudentsTeachers;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -683,7 +653,7 @@ app.get('/StudentsTests', function(req, res)
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
 
-// StudentsTests section - Adding a StudentsTeachers.
+// StudentsTests section - Adding a StudentsTests.
 app.post('/add-students-tests-ajax', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
@@ -701,7 +671,7 @@ app.post('/add-students-tests-ajax', function(req, res)
             }
             else
             {
-                // If there was no error, perform a SELECT * on Students
+                // If there was no error, perform a SELECT * on StudentsTests
                 query2 = "SELECT * FROM StudentsTests;";
                 db.pool.query(query2, function(error, rows, fields){
     
@@ -722,7 +692,7 @@ app.post('/add-students-tests-ajax', function(req, res)
         })
     });
 
-// StudentsTests section - Delete a StudentsTeachers.
+// StudentsTests section - Delete a StudentsTests.
 app.delete('/delete-students-tests-ajax', function(req,res,next){
     let data = req.body;
     let idStudentsTests = parseInt(data.id);

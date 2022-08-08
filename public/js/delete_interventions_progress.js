@@ -3,7 +3,7 @@
 //  Adapted from:
 //  Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
-function deleteInterventionProgress(idInterventionProgress) {
+function deleteInterventionsProgress(idInterventionProgress) {
     // Put our data we want to send in a javascript object
     let data = {
         id: idInterventionProgress
@@ -11,7 +11,7 @@ function deleteInterventionProgress(idInterventionProgress) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-intervention-progress-ajax", true);
+    xhttp.open("DELETE", "/delete-interventions-progress-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -33,7 +33,7 @@ function deleteInterventionProgress(idInterventionProgress) {
 
 function deleteRow(idInterventionProgress){
 
-    let table = document.getElementById("interventionProgress-table");
+    let table = document.getElementById("interventionsProgress-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop

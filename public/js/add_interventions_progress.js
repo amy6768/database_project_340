@@ -100,7 +100,7 @@ addRowToTable = (data) => {
     idCell.innerText = newRow.idInterventionProgress;
     idInterventionCell.innerText = newRow.idIntervention;
     idStudentCell.innerText = newRow.idStudent;
-    startDateCell.innerText = newRow.date;
+    startDateCell.innerText = newRow.startDate;
     interventionNotesCell.innerText = newRow.interventionNotes;
     
     deleteCell = document.createElement("button");

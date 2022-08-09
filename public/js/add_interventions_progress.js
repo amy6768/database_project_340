@@ -14,23 +14,23 @@ addInterventionsProgressForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let inputIdInterventionProgress = document.getElementById("add-idInterventionProgress");
-    let inputIdStudent = document.getElementById("add-idStudent");
     let inputIdIntervention = document.getElementById("add-idIntervention");
+    let inputIdStudent = document.getElementById("add-idStudent"); 
     let inputStartDate = document.getElementById("input-startDate");
     let inputInterventionNotes = document.getElementById("input-interventionNotes");
 
     // Get the values from the form fields
     let idInterventionProgressValue = inputIdInterventionProgress.value;
-    let idStudentValue = inputIdStudent.value;
     let idInterventionValue = inputIdIntervention.value;
+    let idStudentValue = inputIdStudent.value;
     let startDateValue = inputStartDate.value;
     let interventionNotesValue = inputInterventionNotes.value;
 
     // Put our data we want to send in a javascript object
     let data = {
         idInterventionProgress: idInterventionProgressValue,
-        idStudent: idStudentValue,
         idIntervention: idInterventionValue,
+        idStudent: idStudentValue, 
         startDate: startDateValue,
         interventionNotes: interventionNotesValue,
     }
@@ -56,8 +56,8 @@ addInterventionsProgressForm.addEventListener("submit", function (e) {
 
             // Clear the input fields for another transaction
             idInterventionProgress.value = '';
-            idStudent.value = '';
             idIntervention.value = '';
+            idStudent.value = '';
             startDate.value = '';
             interventionNotes.value = '';
         }

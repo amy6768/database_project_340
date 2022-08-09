@@ -56,11 +56,11 @@ addTestScoreForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            idTest.value = '';
-            idStudent.value = '';
-            testDate.value = '';
-            testScore.value = '';
-            testNotes.value = '';
+            inputIdTest.value = '';
+            inputIdStudent.value = '';
+            inputTestDate.value = '';
+            inputTestScore.value = '';
+            inputNotes.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -115,10 +115,10 @@ addRowToTable = (data) => {
     // Add the cells to the row 
     row.appendChild(idCell);
     row.appendChild(testDateCell);
-    row.appendChild(testScore);
-    row.appendChild(idStudent);
-    row.appendChild(idTest);
-    row.appendChild(testNotes);
+    row.appendChild(testScoreCell);
+    row.appendChild(idStudentCell);
+    row.appendChild(idTestCell);
+    row.appendChild(testNotesCell);
 
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.id);

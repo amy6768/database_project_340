@@ -59,11 +59,11 @@ addBehaviorIncidentForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            observedBehavior.value = '',
-            actionTaken.value = '',
-            parentContact.value = '',
-            date.value = '',
-            idStudent.value = '';
+            inputObservedBehavior.value = '',
+            inputActionTaken.value = '',
+            inputParentContact.value = '',
+            inputDate.value = '',
+            inputIdStudent.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -133,13 +133,5 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.firstname + ' ' +  newRow.lastName;
-    option.value = newRow.id;
-    selectMenu.add(option);
-    // End of new step 8 code.
 }
 

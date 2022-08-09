@@ -48,8 +48,8 @@ addTestScoreForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            idTeacher.value = '';
-            idStudent.value = '';
+            inputIdTeacher.value = '';
+            inputIdStudent.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -99,8 +99,8 @@ addRowToTable = (data) => {
 
     // Add the cells to the row 
     row.appendChild(idCell);
-    row.appendChild(idTeacher);
-    row.appendChild(idStudent);
+    row.appendChild(idTeacherCell);
+    row.appendChild(idStudentCell);
 
 
     // Add a row attribute so the deleteRow function can find a newly added row
@@ -109,13 +109,5 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
-    // Find drop down menu, create a new option, fill data in the option (full name, id),
-    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
-    let selectMenu = document.getElementById("mySelect");
-    let option = document.createElement("option");
-    option.text = newRow.firstname + ' ' +  newRow.lastName;
-    option.value = newRow.id;
-    selectMenu.add(option);
-    // End of new step 8 code.
 }
 

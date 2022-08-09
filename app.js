@@ -1132,20 +1132,13 @@ app.get('/StudentsInterventions', function(req, res)
                 console.log(idStudent)
                 return res.render('StudentsInterventions', {data: StudentsInterventions, idIntervention: idIntervention, idStudent: idStudent});
             })
-
             
         })
         
-        
     })
 
-    //db.pool.query(query2, function(error, rows, fields){
-        
-        // Save the student
-        //let parents = rows;
-        //console.log(Teachers)
-        //return res.render('Teachers', {data: Teachers})});
-});                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.
+    
+});                                                                                         
 
 // Adding a StudentInterventions
 app.post('/add-students-intervention-ajax', function(req, res) 
@@ -1233,10 +1226,8 @@ app.get('/InterventionsProgress', async function(req, res)
                 
                 return res.render('InterventionsProgress', {data: InterventionsProgress, idIntervention: idIntervention, idStudent: idStudent});
             })
-
             
-        })
-        
+        })       
         
     })
 });                                                       // received back from the query                                       // will process this file, before sending the finished HTML to the client.

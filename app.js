@@ -1251,7 +1251,7 @@ app.post("/add-interventions-progress-ajax", function(req, res)
         //if (isNaN(birthdate))
         //{birthdate = 'NULL'}
         // Create the query and run it on the database
-        query1 = `INSERT INTO InterventionsProgress (startDate, interventionNotes, idIntervention, idStudent) VALUES ('${data.startDate}', '${data.interventioNotes}', '${data.idIntervention}', '${data.idStudent}')`;
+        query1 = `INSERT INTO InterventionsProgress (startDate, interventionNotes, idIntervention, idStudent) VALUES ('${data.startDate}', '${data.interventionNotes}', '${data.idIntervention}', '${data.idStudent}')`;
         
         db.pool.query(query1, function(error, rows, fields){
     

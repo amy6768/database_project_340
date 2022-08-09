@@ -107,7 +107,7 @@
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'><button onclick="deleteParent({{this.idStudentsParent}}), window.location.reload()"">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteParent({{this.idStudentsParent}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -119,6 +119,7 @@
 
 <h2>Add a new parent for a student</h2>
 <p>To add a parent for a student, please enter the parent information below and click 'Submit'!</p>
+<p>If the information doesn't appear in the table right away please reload the page</p>
 <form id="add-students-parent-ajax">
     <label for="add-idParent">Choose a Parent: </label>
     <select name="add-idParent" id="add-idParent">

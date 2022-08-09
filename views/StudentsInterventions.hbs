@@ -107,7 +107,7 @@
 
             <td align = 'middle'>{{this.studentFirstName}}</td>
 
-            <td align = 'middle'><button onclick="deleteIntervention({{this.idStudentsIntervention}}), window.location.reload()"">Delete</button></td>
+            <td align = 'middle'><button onclick="deleteIntervention({{this.idStudentsIntervention}}), window.location.reload()">Delete</button></td>
         </tr>
         <!--{{/each}}-->
     </tbody>
@@ -117,8 +117,9 @@
 {{!-- Form to add a record to the table  --}}
 
 
-<h2>Add a new intervention for a student</h2>
+<h2>Add a nw intervention for a student</h2>
 <p>To add an intervention for a student, please enter the intervention information below and click 'Submit'!</p>
+<p>If the information doesn't appear in the table right away please reload the page</p>
 <form id="add-students-intervention-ajax">
     <label for="add-idIntervention">Choose an Intervention: </label>
     <select name="add-idIntervention" id="add-idIntervention">

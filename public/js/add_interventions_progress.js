@@ -13,14 +13,12 @@ addInterventionsProgressForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputIdInterventionProgress = document.getElementById("add-idInterventionProgress");
     let inputIdIntervention = document.getElementById("add-idIntervention");
     let inputIdStudent = document.getElementById("add-idStudent"); 
     let inputStartDate = document.getElementById("input-startDate");
     let inputInterventionNotes = document.getElementById("input-interventionNotes");
 
     // Get the values from the form fields
-    let idInterventionProgressValue = inputIdInterventionProgress.value;
     let idInterventionValue = inputIdIntervention.value;
     let idStudentValue = inputIdStudent.value;
     let startDateValue = inputStartDate.value;
@@ -28,7 +26,6 @@ addInterventionsProgressForm.addEventListener("submit", function (e) {
 
     // Put our data we want to send in a javascript object
     let data = {
-        idInterventionProgress: idInterventionProgressValue,
         idIntervention: idInterventionValue,
         idStudent: idStudentValue, 
         startDate: startDateValue,
@@ -55,7 +52,6 @@ addInterventionsProgressForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            idInterventionProgress.value = '';
             idIntervention.value = '';
             idStudent.value = '';
             startDate.value = '';

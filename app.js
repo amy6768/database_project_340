@@ -267,7 +267,7 @@ app.put('/put-test-ajax', function(req,res,next){
     
           // Run the 1st query
           db.pool.query(queryUpdateTest, [testName, testDescription, idTest], function(error, rows, fields){
-            console.log(queryTests)
+            
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.

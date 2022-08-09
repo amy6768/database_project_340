@@ -1308,7 +1308,7 @@ app.get('/BehaviorIncidents', async function(req, res)
 {
     // Declare Query 1
     
-    let query1 = "SELECT BehaviorIncidents.idBehaviorIncident, BehaviorIncidents.observedBehavior, BehaviorIncidents.actionTaken, BehaviorIncidents.parentContact, BehaviorIncidents.date, Students.studentFirstName FROM (BehaviorIncidents INNER JOIN Students on BehaviorIncidents.idStudent = Students.idStudent)";
+    let query1 = "SELECT BehaviorIncidents.idBehaviorIncident, BehaviorIncidents.observedBehavior, BehaviorIncidents.actionTaken, BehaviorIncidents.parentContact, BehaviorIncidents.date, Students.studentFirstName FROM (BehaviorIncidents LEFT OUTER JOIN Students on BehaviorIncidents.idStudent = Students.idStudent)";
 
     let query2 = 'SELECT * from Students';
 
@@ -1336,8 +1336,13 @@ app.post("/add-behavior-incident-ajax", function(req, res)
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
+
+        let studentID = data.idStudent
+        if (studentID === "Select a Student"){
+            studentID = "NULL"
+        }
     
-        query1 = `INSERT INTO BehaviorIncidents (observedBehavior, actionTaken, parentContact, date, idStudent) VALUES ('${data.observedBehavior}', '${data.actionTaken}', '${data.parentContact}', '${data.Date}', '${data.idStudent}')`;
+        query1 = `INSERT INTO BehaviorIncidents (observedBehavior, actionTaken, parentContact, date, idStudent) VALUES ('${data.observedBehavior}', '${data.actionTaken}', '${data.parentContact}', '${data.Date}', '${studentID}')`;
         
         db.pool.query(query1, function(error, rows, fields){
     

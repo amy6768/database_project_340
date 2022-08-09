@@ -1288,7 +1288,7 @@ app.post("/add-interventions-progress-ajax", function(req, res)
 app.delete('/delete-interventions-progress-ajax/', function(req,res,next){
     let data = req.body;
     let idInterventionProgress = parseInt(data.id);
-    let deleteInterventionsProgress = `DELETE FROM InterventionsProgress WHERE idInterventionsProgress = ?`;
+    let deleteInterventionsProgress = `DELETE FROM InterventionsProgress WHERE idInterventionProgress = ?`;
   
   
     // Run the 1st query
